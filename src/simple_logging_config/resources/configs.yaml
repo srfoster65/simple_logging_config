@@ -1,0 +1,24 @@
+dual:
+  - handler: console
+    formatter: brief
+  - handler: file
+    formatter: verbose
+dual_rotating:
+  - handler: console
+    formatter: brief
+  - handler: rotating_file
+    formatter: verbose
+dual_detailed:
+  - handler: console
+    formatter: verbose
+  - handler: file
+    formatter: verbose
+console:
+  - handler: console
+    formatter: brief
+file:
+  - handler: file
+    formatter: verbose
+rotating_file:
+  - handler: rotating_file
+    formatter: verbose

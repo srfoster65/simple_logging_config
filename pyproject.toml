@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "simple-logging-config"
+authors = [
+    {name = "Steve Foster", email = "srfoster1@gmail.com"},
+]
+description = "Quickly configure logging using a preset configuration."
+keywords = ["logging"]
+readme = "readme.md"
+requires-python =">= 3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "pyyaml",
+    "jinja2",
+]
+license = {text = "MIT"}
+dynamic = ["version"]
+# version = '0.0.1'
+
+[project.scripts]
+
+[project.urls]
+
+
+[tool.setuptools.dynamic]
+version = {attr = "simple_logging_config.version.__version__"}
+
+[tool.setuptools.package-data]
+"simple_logging_config.resources" = ["*.yaml"]
+
+[tool.pylint.basic]
+good-names = [
+    "go",
+]
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint."massages-control"]
+disable = []

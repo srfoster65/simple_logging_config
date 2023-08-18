@@ -1,0 +1,17 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+    {% for item in config %}
+    {{item.formatter}}: {{  definitions.formatters[item['formatter']] }}
+    {% endfor %}
+handlers:
+    {% for item in config %}
+    {{item.handler}}: {{  definitions.handlers[item['handler']] }}
+    {% endfor %}
+root:
+  handlers:
+    {% for item in config %}
+    - {{ item.handler }}
+    {% endfor %}
+  level: DEBUG
+  propagate: True

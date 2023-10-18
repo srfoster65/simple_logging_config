@@ -1,0 +1,55 @@
+site_name: "Simple Logging Config"
+site_description: "Package to simplify logging configuration."
+repo_url: "https://github.com/srfoster65/simple_logging_config"
+repo_name: "srfoster65/simple_logging_config"
+site_dir: "site"
+watch: [readme.md, docs/overview.md, docs/usage.md, docs/license.md, docs/changelog.md]
+
+theme:
+  name: material
+  features:
+  - content.code.annotate
+  - navigation.tabs
+  - navigation.tabs.sticky
+  - navigation.top
+  palette:
+    primary: blue
+
+nav:
+  # - Usage:
+    - Overview: overview.md
+    - Usage: usage.md
+    - Argparse Support: argparse_arguments.md
+    - Environment Variables: env_variables.md
+    - API:
+      - Reference: api.md
+      - Example Usage: api_examples.md
+    - Custom Logging Levels: custom_levels.md
+    - Design: design.md
+    - Changelog: changelog.md
+    - License: license.md
+  # - Development:
+  #   - Contributing: contributing.md
+  #   - Code of Conduct: code_of_conduct.md
+
+# extra_css:
+#   - css/style.css
+#   - css/material.css
+#   - css/mkdocstrings.css
+
+markdown_extensions:
+# - admonition
+# - pymdownx.details
+# - pymdownx.emoji
+# - pymdownx.magiclink
+- pymdownx.snippets:
+#     check_paths: true
+# - pymdownx.superfences
+# - pymdownx.tabbed:
+#     alternate_style: true
+# - pymdownx.tasklist
+
+plugins:
+# - section-index
+- search
+# - markdown-exec

@@ -1,10 +1,10 @@
 """
-Add custon log levels to the logging class.
+Add custom log levels to the logging class.
 """
 
 import logging
 
-from .defaults import (
+from ._defaults import (
     PRINT_LOGGING_LEVEL,
     PRINT_LOGGING_NAME,
     TRACE_LOGGING_LEVEL,

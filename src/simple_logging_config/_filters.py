@@ -2,10 +2,7 @@
 Logging filters
 """
 
-from os import getenv
 import logging
-
-from .defaults import DEFAULT_LOGGING_MODULES
 
 
 logger = logging.getLogger(__name__)
@@ -25,11 +22,9 @@ class Whitelist(logging.Filter):
 
 def filter_module_logging(modules) -> None:
     """
-    Add speciifed modules to the filter whitelist
+    Add specified modules to the filter whitelist
     """
-    modules = modules or getenv(DEFAULT_LOGGING_MODULES, '').split()
-    if not modules:
-        return
-    logger.debug('Adding modules to filter whitelist: %s', modules)
-    for handler in logging.root.handlers:
-        handler.addFilter(Whitelist(modules))
+    if modules:
+        logger.debug('Adding modules to filter whitelist: %s', modules)
+        for handler in logging.root.handlers:
+            handler.addFilter(Whitelist(modules))

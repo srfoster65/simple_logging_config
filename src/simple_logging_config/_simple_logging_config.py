@@ -1,0 +1,106 @@
+"""
+Class that configures logging to provide support for a selection of console
+and file logging handlers.
+
+Config:
+The "dual" config is used if not specified. The config can be adusted by
+parameters or the  environment variable defined by: SLC_DEFAULT_CONFIG
+
+Level
+Where a config logs to multiple handlers, the level of each handler can be
+adjusted by supplying level as a list of values.
+
+Modules
+Logging can be restricted to specific modules by providing a list of module
+names.
+"""
+#  pylint: disable=no-member
+
+import logging
+import logging.config
+
+from arg_init import ArgInit
+
+from ._add_logging_level import add_print_logging_level, add_trace_logging_level
+from ._defaults import (
+    DEFAULT_LOG_FILE_PATH,
+    DEFAULT_LOG_FILE_BACKUP_COUNT,
+    DEFAULT_LOGGING_CONFIG,
+    ENV_PREFIX,
+    VERBOSE_MAPPING,
+)
+from ._file import rotate_log, modify_log_file_attributes
+from ._filters import filter_module_logging
+from ._formatters import modify_formatters
+from ._logging_config import get_logging_config
+from ._level import set_levels
+from ._singleton import Singleton
+
+
+logger = logging.getLogger(__name__)
+
+
+class SimpleLoggingConfig(metaclass=Singleton):
+    """
+    Class to simplify logging configuration
+    """
+
+    # pylint:  disable=unused-argument
+    def __init__(
+        self,
+        config=DEFAULT_LOGGING_CONFIG,
+        verbose=None,
+        levels=None,
+        modules=None,
+        log_file_path=DEFAULT_LOG_FILE_PATH,
+        backup_count=DEFAULT_LOG_FILE_BACKUP_COUNT,
+    ) -> None:
+        """
+        Configure logging to provide default logging facilities.
+        """
+        ArgInit(env_prefix=ENV_PREFIX, func_is_bound=True)
+        config_data = get_logging_config(self.config)
+        modify_formatters(config_data)
+        modify_log_file_attributes(config_data, self.log_file_path, self.backup_count)
+        logging.config.dictConfig(config_data)
+        # Take a copy of current handler names in case other modules add more
+        # later i.e. pytest. This is to allow the tearing down (reset) of SLC.
+        self._handlers = [handler.name for handler in logging.getLogger().handlers]
+        rotate_log()
+        filter_module_logging(self.modules)
+        add_print_logging_level()
+        add_trace_logging_level()
+        set_levels(self.levels if self.levels else VERBOSE_MAPPING.get(self.verbose))
+        self._report_logging_config()
+
+    def reset(self) -> None:
+        """
+        This API is provided primarily for unit testing. It is not intended for general use
+        """
+        logger.debug("Reset simple_logging_config")
+        logger.debug("Removing handlers: %s", self._handlers)
+        for handler_name in self._handlers:
+            logging.root.removeHandler(self._get_handler(handler_name))
+        SimpleLoggingConfig.clear()
+
+    def __str__(self):
+        return "\n".join(self._info())
+
+    def __repr__(self):
+        return f"<SimpleLoggingConfig(config={self.config})>"
+
+    def _info(self) -> list:
+        info = [f"Logging config: {self.config}"]
+        for handler_name in self._handlers:
+            info.append(f"  {str(self._get_handler(handler_name))}")
+        return info
+
+    def _report_logging_config(self) -> None:
+        for item in self._info():
+            logger.debug(item)
+
+    def _get_handler(self, handler_name: str):
+        for handler in logging.getLogger().handlers:
+            if handler.name == handler_name:
+                return handler
+        return None

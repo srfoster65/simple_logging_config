@@ -2,11 +2,18 @@ version: 1
 disable_existing_loggers: False
 formatters:
     {% for item in config %}
-    {{item.formatter}}: {{  definitions.formatters[item['formatter']] }}
+    {{item.formatter}}:
+      {% for key, value in definitions.formatters[item['formatter']].items() %}
+        {{ key }}: "{{ value }}"
+      {% endfor %}
     {% endfor %}
 handlers:
     {% for item in config %}
-    {{item.handler}}: {{  definitions.handlers[item['handler']] }}
+    {{item.handler}}:
+      {% for key, value in definitions.handlers[item['handler']].items() %}
+        {{ key }}: {{ value }}
+      {% endfor %}
+        formatter: {{ item.formatter }}
     {% endfor %}
 root:
   handlers:

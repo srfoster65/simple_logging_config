@@ -7,7 +7,7 @@ from ._logging_config import read_configs
 
 def add_logging_arguments(parser):
     """
-    Add logging argumnets to parser to support logging
+    Add logging argumnets to parser to enable configuring logging
     """
     configs = read_configs().keys()
     group = parser.add_mutually_exclusive_group(required=False)
@@ -23,19 +23,20 @@ def add_logging_arguments(parser):
         ),
     )
     group.add_argument(
-        "--slc_levels",
-        dest="slc_levels",
-        nargs="*",
+        "--levels",
+        dest="levels",
         type=str,
         help=(
-            "The log levels to be applied to attached handlers. The "
-            "levels are applied to the handlers in the order the handlers "
-            "are registered. To skip a handler, use 'None' or '-'."
+            "The log level(s) to be applied to attached handlers. "
+            "This value can be a single integer or a string representing a "
+            "defined log level. Or it can be a string representing a dictionary "
+            "where key/value pairs are handler names and the log level to be "
+            "associated with that handler"
         ),
     )
     parser.add_argument(
-        "--slc_modules",
-        dest="slc_modules",
+        "--modules",
+        dest="modules",
         nargs="*",
         type=str,
         help=(
@@ -44,8 +45,8 @@ def add_logging_arguments(parser):
         ),
     )
     parser.add_argument(
-        "--slc_log_file_path",
-        dest="slc_log_file_path",
+        "--log_file_path",
+        dest="log_file_path",
         type=str,
         help=(
             "The path the log file will be saved to. If this is a folder, "
@@ -55,15 +56,14 @@ def add_logging_arguments(parser):
         ),
     )
     parser.add_argument(
-        "--slc_backup_count",
-        dest="slc_backup_count",
-        default=0,
+        "--backup_count",
+        dest="backup_count",
         type=int,
         help=("An integer specifying The number of backup log files to retain."),
     )
     parser.add_argument(
-        "--slc_config",
-        dest="slc_config",
+        "--config",
+        dest="config",
         choices=configs,
         type=str,
         help="The name of the logging config to be used.",

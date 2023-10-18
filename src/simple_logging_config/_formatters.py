@@ -4,9 +4,9 @@ Functions related to modifying logging formatters
 Overide default formatters for specific handlers with new format read from environment variables.
 """
 
-from os import getenv
+from os import environ
 
-from .defaults import CUSTOM_FORMAT_TEMPLATE_ENV
+from ._defaults import CUSTOM_FORMAT_TEMPLATE_ENV
 
 
 def modify_formatters(config_data: dict) -> None:
@@ -14,7 +14,7 @@ def modify_formatters(config_data: dict) -> None:
     Overide default formatters for specific handlers with new format read from environment variables.
     """
     for handler_name in config_data["handlers"]:
-        format_str = getenv(
+        format_str = environ.get(
             CUSTOM_FORMAT_TEMPLATE_ENV.format(handler_name=handler_name)
         )
         if format_str is not None:

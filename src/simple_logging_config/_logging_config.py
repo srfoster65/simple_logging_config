@@ -8,7 +8,7 @@ from pathlib import Path
 from jinja2 import Environment, PackageLoader
 import yaml
 
-from .exceptions import InvalidResourceException, InvalidLoggingConfigException
+from ._exceptions import InvalidResourceException, InvalidLoggingConfigException
 
 LOGGING_CONFIG = "src/simple_logging_config/resources/default.yaml.jinja"
 RESOURCE_PATH = str(Path("resources", "{resource_name}"))
@@ -22,7 +22,6 @@ def _read_resource(resource_name: str):  # -> dict:
     my_resources = files(__package__)
     resource_path = _resource_path(resource_name)
     try:
-        # data = (my_resources / resource_path).read_bytes()
         return (my_resources / resource_path).read_bytes()
     except FileNotFoundError:
         raise InvalidResourceException(resource_name) from None

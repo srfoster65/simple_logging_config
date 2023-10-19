@@ -1,0 +1,25 @@
+name: Docs
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PDM
+      uses: pdm-project/setup-pdm@v3
+      with:
+        python-version: 3.11
+        cache: true
+
+    - name: Install dependencies
+      run: pdm install -G docs
+
+    - name: Deploy mkdocs to gh-pages      
+      run: pdm run mkdocs gh-deploy --force

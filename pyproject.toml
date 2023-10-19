@@ -9,7 +9,7 @@ authors = [
 ]
 description = "Simple Logging Config"
 keywords = ["logging"]
-readme = "README.md"
+readme = "readme.md"
 requires-python =">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",

@@ -1,38 +1,45 @@
 [build-system]
-requires = ["setuptools >= 61.0"]
-build-backend = "setuptools.build_meta"
-
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [project]
-name = "simple-logging-config"
+name = "simple_logging_config"
 authors = [
-    {name = "Steve Foster", email = "srfoster1@gmail.com"},
+    {name = "srfoster65", email = "135555068+srfoster65@users.noreply.github.com"},
 ]
-description = "Quickly configure logging using a preset configuration."
+description = "Simple Logging Config"
 keywords = ["logging"]
-readme = "readme.md"
-requires-python =">= 3.7"
+readme = "README.md"
+requires-python =">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
     "pyyaml",
     "jinja2",
+    "arg-init>=0.0.3",
 ]
 license = {text = "MIT"}
 dynamic = ["version"]
-# version = '0.0.1'
-
-[project.scripts]
-
-[project.urls]
 
 
-[tool.setuptools.dynamic]
-version = {attr = "simple_logging_config.version.__version__"}
+[tool.pdm.backend.hooks.base]
+target = "wheel"
 
-[tool.setuptools.package-data]
-"simple_logging_config.resources" = ["*.yaml"]
+[tool.pdm.version]
+source = "file"
+path = "src/simple_logging_config/_version.py"
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "black"
+]
+test = [
+    "pytest>=7.4.2",
+    "pytest-cov>=4.1.0",
+]
+doc = ["mkdocs", "mkdocs-material", "pymdown-extensions"]
+
 
 [tool.pylint.basic]
 good-names = [
@@ -44,3 +51,10 @@ max-line-length = 120
 
 [tool.pylint."massages-control"]
 disable = []
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=src"
+testpaths = [
+    "tests",
+]

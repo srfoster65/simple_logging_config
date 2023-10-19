@@ -3,7 +3,7 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [project]
-name = "simple_logging_config"
+name = "simple-logging-config"
 authors = [
     {name = "srfoster65", email = "135555068+srfoster65@users.noreply.github.com"},
 ]
@@ -21,6 +21,10 @@ dependencies = [
 ]
 license = {text = "MIT"}
 dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://srfoster65.github.io/simple_logging_config/"
+Source = "https://github.com/srfoster65/simple_logging_config"
 
 
 [tool.pdm.backend.hooks.base]

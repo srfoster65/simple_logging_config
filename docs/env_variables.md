@@ -8,9 +8,9 @@ Environment variables must be set before logging is initialised.
 
 When logging is initialised, the following precedence applies:
 
-1. Explicit value
-2. Environment Variable
-3. Implementation default
+1. Environment Variable
+1. Argument value
+1. Implementation default
 
 ## Supported Environment Variables
 
@@ -26,11 +26,9 @@ Define the default logging levels to be used for each handler.
 
 The value should be a string, or list of strings, with a value for each handler. Values are applied to handlers in order. Once the list of values is used up, remaining handlers keep their originally configured log level.
 
-Note: Use with caution. It is possible to define more values than a given config can support.
-
 ### SLC_DEFAULT_MODULES
 
-Define the python modules that logging should be enabled for. Only defined modules will emit logging messages. Log levels still apply to the assoctaied handlers.
+Define the python modules that logging should be enabled for. Only defined modules will emit logging messages. Log levels still apply to the associated handlers.
 
 The value should be a string, or list of strings.
 

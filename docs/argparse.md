@@ -1,4 +1,4 @@
-# Add Logging Arguments to a Parser
+# ArgParse Support
 
 If you write CLI programs using ArgumentParser, support is included to simplify configuring logging in a standard fashion.
 
@@ -6,7 +6,7 @@ If you write CLI programs using ArgumentParser, support is included to simplify 
 
 ## add_logging_arguments(parser)
 
-Calling add_logging_arguments() with a parser object as a parameter will add the following paramters to your script.
+Calling add_logging_arguments(parser) with a parser object as a parameter will add the following paramters to your script.
 
 - verbose
 - slc_levels
@@ -52,7 +52,7 @@ options:
                         The log levels to be applied to attached handlers. The levels are applied to the handlers in the order the handlers are registered. To skip a handler, use 'None'
                         or '-'.
   --slc_modules [SLC_MODULES ...]
-                        The names of the modules to be logged.
+                        The names of the modules to be logged. If omitted all modules are logged.
   --slc_log_file_path SLC_LOG_FILE_PATH
                         The path the log file will be saved to. If this is a path, the log file will be saved to this path with the file name derived from the name of the calling script.
                         Otherwise, assume this a path to a named log file.

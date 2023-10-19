@@ -14,10 +14,8 @@ Logging should only be configured once for any script/program execution. With th
 
 There are multiple ways to configure logging.
 
+1. [Environment Variables](env_variables.md)
 1. [ArgumentParser Options](argparse_arguments.md)
-2. [Environment Variables](env_variables.md)
-3. [Using the API](api.md)
-
-If used from a user executed script, the recommended way is to use ArgumentParser Options, with specific settings overidden using Environment Variables if required.
+1. [Using the API](api.md)
 
 See [Argparse Support](argparse_arguments.md) for details.

@@ -2,22 +2,28 @@
 
 ## Implementation
 
-simple_logging_config creates logging handlers at the root level. This means that these handlers will be available to all modules unless specifically overridden. This has the additional consequence that logging will be enabled for all modules.
+simple_logging_config creates logging handlers at the root level. This means that these handlers will be available to all modules unless specifically overridden.
 
-### 3 types of handlers are defined
+### Handlers
+
+3 types of handlers are defined
 
 - Console
 - File
 - Rotating File
 
-### 2 message output formats are defined
+### Formatters
+
+2 message output formats are defined
 
 - Brief
 - Detailed
 
 Note: It is possiible to customise the output format for a specific handler using environment variables.
 
-### Combinations of these options are made available via pre-defined configurations
+### Pre-defined Configs
+
+Combinations of these options are made available via pre-defined configurations
 
 1. dual
     - console: brief

@@ -3,7 +3,7 @@ site_description: "Package to simplify logging configuration."
 repo_url: "https://github.com/srfoster65/simple_logging_config"
 repo_name: "srfoster65/simple_logging_config"
 site_dir: "site"
-watch: [readme.md, docs/overview.md, docs/usage.md, docs/license.md, docs/changelog.md]
+watch: [readme.md, docs/index.md, docs/usage.md, docs/license.md, docs/changelog.md]
 
 theme:
   name: material
@@ -17,15 +17,16 @@ theme:
 
 nav:
   # - Usage:
-    - Overview: overview.md
-    - Usage: usage.md
-    - Argparse Support: argparse_arguments.md
-    - Environment Variables: env_variables.md
-    - API:
-      - Reference: api.md
-      - Example Usage: api_examples.md
-    - Custom Logging Levels: custom_levels.md
-    - Design: design.md
+    - Documentation:
+      - index.md
+      - Usage: usage.md
+      - Argparse Support: argparse.md
+      - Environment Variables: env_variables.md
+      - API:
+        - Reference: api/reference.md
+        - Example Usage: api/examples.md
+      - Custom Logging Levels: custom_levels.md
+      - Design: design.md
     - Changelog: changelog.md
     - License: license.md
   # - Development:

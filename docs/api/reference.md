@@ -1,4 +1,4 @@
-# Using the API
+# Reference
 
 ## configure_logging
 
@@ -13,8 +13,9 @@ configure_logging() takes 6 optional parameters
 + slc_backup_count: The number of backup log files to keep (if applicable).
 + slc_config: The name of the logging configuration to use.
 
-Additionally, behaviour can also be modified by the use of environemnt variables.
-Note: Some behaviours can ONLY be updated by the use of environemnt variables.
+Additionally, behaviour can also be modified by the use of environment variables.
+
+Note: Some behaviours can **only** be updated by the use of environemnt variables.
 
 ```python
 from simple_logging_config import configure_logging
@@ -22,11 +23,11 @@ from simple_logging_config import configure_logging
 configure_logging()
 ```
 
-See [API Examples](api_examples.md) for more detialed use cases.
+See [API Examples](api_examples.md) for more detailed use cases.
 
 ### Handler Logging Levels
 
-slc_levels sets the log level for each handler defined in the selected config. The first value is applied to the first handler, etc. If less values are supplied than attahced handlers then the remaining handlers log level is unchanged.
+slc_levels sets the log level for each handler defined in the selected config. The first value is applied to the first handler, etc. If less values are supplied than attached handlers then the remaining handlers' log level are unchanged.
 Each level can be an integer or string defining a configured level. If a value of None (or '-') is specified then the level is unchanged.
 
 #### Handler Logging Level Defaults
@@ -36,7 +37,7 @@ If no environment variable is defined then the logging levels are unchanged.
 
 ### Modules
 
-slc_modules is a list of modules names that logging should be enabled for. No other modules will emit any log messages.
+slc_modules is a list of modules names that logging should be enabled for. No other modules will emit any log messages. If this value is unset then logging will be enabled for all modules.
 Default behaviour is to enable logging for all modules.
 
 #### Module Defaults
@@ -77,21 +78,21 @@ The name of the config to use for logging.
 
 Several configurations are provided:
 
-+ dual:
-  + console handler - brief : INFO
-  + file handler - detailed : DEBUG
-+ dual_detailed:
-  + console handler - detailed : INFO
-  + file handler - detailed : DEBUG
-+ dual_rotating:
-  + console handler - brief : INFO
-  + rotating file handler - detailed : DEBUG
-+ console:
-  + console handler - detailed : DEBUG
-+ file:
-  + file handler - detailed : DEBUG
-+ rotating_file:
-  + rotating file handler - detailed : DEBUG
++ **dual:**
+    + console handler - brief : INFO
+    + file handler - detailed : DEBUG
++ **dual_detailed:**
+    + console handler - detailed : INFO
+    + file handler - detailed : DEBUG
++ **dual_rotating:**
+    + console handler - brief : INFO
+    + rotating file handler - detailed : DEBUG
++ **console:**
+    + console handler - detailed : DEBUG
++ **file:**
+    + file handler - detailed : DEBUG
++ **rotating_file:**
+    + rotating file handler - detailed : DEBUG
 
 #### Config Defaults
 

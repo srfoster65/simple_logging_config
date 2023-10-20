@@ -55,7 +55,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         modules=None,
         log_file_path=None,
         backup_count=None,
-        kwargs=None
+        **kwargs
     ) -> None:
         """
         Configure logging to provide default logging facilities.

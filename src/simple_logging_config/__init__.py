@@ -13,9 +13,9 @@ from ._configure import configure_logging
 from ._configure import reset_logging
 from ._configure import print_logging_config
 from ._exceptions import (
-    InvalidHandlerException,
-    InvalidLoggingConfigException,
-    InvalidResourceException,
+    LoggingConfigException,
+    LoggingHandlerException,
+    LoggingResourceException,
 )
 from ._level import set_levels
 from ._simple_logging_config import SimpleLoggingConfig
@@ -35,7 +35,7 @@ __all__ = [
     "add_logging_level",
     "add_print_logging_level",
     "add_trace_logging_level",
-    "InvalidHandlerException",
-    "InvalidLoggingConfigException",
-    "InvalidResourceException",
+    "LoggingHandlerException",
+    "LoggingConfigException",
+    "LoggingResourceException",
 ]

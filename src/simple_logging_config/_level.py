@@ -2,10 +2,10 @@
 Functions related setting the logging level.
 """
 
-from os import getenv
 from ast import literal_eval
 import logging
 
+from ._exceptions import LoggingHandlerException
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ def _get_log_levels(levels: int | str | None) -> dict:
             level = _log_level_to_int(levels)
             handler = logging.getLogger().handlers[0]
             return {handler.name: level}
-        except (ValueError, AttributeError):
+        except AttributeError:
             try:
                 # test if levels can be parsed as a dictionary
                 levels_dict = literal_eval(levels)
@@ -36,9 +36,9 @@ def _get_log_levels(levels: int | str | None) -> dict:
                         handler_name: _log_level_to_int(level)
                         for handler_name, level in levels_dict.items()
                     }
-                raise ValueError(f"Invalid value for log level: {levels}") from None
-            except Exception:
-                raise ValueError(f"Invalid value for log level: {levels}") from None
+                raise ValueError(f"Invalid log level: {levels}") from None
+            except ValueError:
+                raise ValueError(f"Invalid log level: {levels}") from None
     return {}
 
 
@@ -49,21 +49,14 @@ def _log_level_to_int(level: int | str) -> int:
     try:
         return int(level)
     except ValueError:
-        int_level = getattr(logging, level)
-        if isinstance(int_level, int):
-            return int_level
-    raise ValueError(f"Invalid log level: {level}")
+        return getattr(logging, level)
 
 
-def _display_level(level: int | str) -> str:
+def _display_level(level: int) -> str:
     """
     Return a string representing the level name and the integer value of the level.
     """
-    if isinstance(level, int):
-        level_str = logging.getLevelName(level)
-    else:
-        level_str = level
-        level = logging.getLevelName(level_str)
+    level_str = logging.getLevelName(level)
     return f"{level_str} ({level})"
 
 
@@ -96,7 +89,7 @@ def _set_handler_log_levels(levels: dict) -> None:
                 handler.setLevel(level)
                 break
         else:
-            logger.warning("No handler for: %s", handler_name)
+            raise LoggingHandlerException(handler_name)
 
 
 def set_levels(levels: int | str | None) -> None:

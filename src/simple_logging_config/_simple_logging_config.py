@@ -29,7 +29,7 @@ from ._defaults import (
     ENV_PREFIX,
     VERBOSE_MAPPING,
 )
-from ._exceptions import InvalidHandlerException
+from ._exceptions import LoggingHandlerException
 from ._file import rotate_log, modify_log_file_attributes
 from ._filters import filter_module_logging
 from ._formatters import modify_formatters
@@ -110,4 +110,4 @@ class SimpleLoggingConfig(metaclass=Singleton):
         for handler in logging.getLogger().handlers:
             if handler.name == handler_name:
                 return handler
-        raise InvalidHandlerException(handler_name)
+        raise LoggingHandlerException(handler_name)

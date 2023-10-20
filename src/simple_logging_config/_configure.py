@@ -10,13 +10,7 @@ def configure_logging(**kwargs) -> SimpleLoggingConfig:
     return SimpleLoggingConfig(**kwargs)
 
 
-def reset_logging(slc: SimpleLoggingConfig | None = None):
+def reset_logging(slc: SimpleLoggingConfig | None = None):  # pragma: no cover
     """Reset simple logging configuartion."""
     slc = slc or SimpleLoggingConfig()
     slc.reset()
-
-
-def print_logging_config(slc: SimpleLoggingConfig | None = None) -> None:
-    """Print logging config information."""
-    slc = slc or SimpleLoggingConfig()
-    print(slc)

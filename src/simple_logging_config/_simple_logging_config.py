@@ -19,7 +19,7 @@ names.
 import logging
 import logging.config
 
-from arg_init import ArgInit
+from arg_init import ArgInit, Arg
 
 from ._add_logging_level import add_print_logging_level, add_trace_logging_level
 from ._defaults import (
@@ -29,6 +29,7 @@ from ._defaults import (
     ENV_PREFIX,
     VERBOSE_MAPPING,
 )
+from ._exceptions import InvalidHandlerException
 from ._file import rotate_log, modify_log_file_attributes
 from ._filters import filter_module_logging
 from ._formatters import modify_formatters
@@ -48,17 +49,23 @@ class SimpleLoggingConfig(metaclass=Singleton):
     # pylint:  disable=unused-argument
     def __init__(
         self,
-        config=DEFAULT_LOGGING_CONFIG,
+        config=None,
         verbose=None,
         levels=None,
         modules=None,
-        log_file_path=DEFAULT_LOG_FILE_PATH,
-        backup_count=DEFAULT_LOG_FILE_BACKUP_COUNT,
+        log_file_path=None,
+        backup_count=None,
+        kwargs=None
     ) -> None:
         """
         Configure logging to provide default logging facilities.
         """
-        ArgInit(env_prefix=ENV_PREFIX, func_is_bound=True)
+        args = (
+            Arg("config", default=DEFAULT_LOGGING_CONFIG),
+            Arg("log_file_path", default=DEFAULT_LOG_FILE_PATH),
+            Arg("backup_count", default=DEFAULT_LOG_FILE_BACKUP_COUNT),
+        )
+        ArgInit(env_prefix=ENV_PREFIX, func_is_bound=True, args=args)
         config_data = get_logging_config(self.config)
         modify_formatters(config_data)
         modify_log_file_attributes(config_data, self.log_file_path, self.backup_count)
@@ -99,8 +106,8 @@ class SimpleLoggingConfig(metaclass=Singleton):
         for item in self._info():
             logger.debug(item)
 
-    def _get_handler(self, handler_name: str):
+    def _get_handler(self, handler_name: str | None):
         for handler in logging.getLogger().handlers:
             if handler.name == handler_name:
                 return handler
-        return None
+        raise InvalidHandlerException(handler_name)

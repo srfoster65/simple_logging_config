@@ -3,14 +3,14 @@ Test named configurations.
 
 These test cases test the named configs setup the specified handlers at the correct logging levels.
 """
-import os
+
 import logging
 
 import pytest
 
 from simple_logging_config import configure_logging
 from simple_logging_config import InvalidLoggingConfigException
-
+from simple_logging_config import InvalidHandlerException
 
 logger = logging.getLogger(__name__)
 
@@ -87,3 +87,11 @@ class TestNamedConfigs:
         """
         with pytest.raises(InvalidLoggingConfigException):
             configure_logging(config="bad_config_name")
+
+    def test_undefined_handler(self):
+        """
+        Test exception raised when trying to find a named handler.
+        """
+        with pytest.raises(InvalidHandlerException):
+            #  pylint: disable=protected-access
+            configure_logging()._get_handler('bad_handler')

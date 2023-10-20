@@ -9,8 +9,8 @@ import logging
 import pytest
 
 from simple_logging_config import configure_logging
-from simple_logging_config import InvalidLoggingConfigException
-from simple_logging_config import InvalidHandlerException
+from simple_logging_config import LoggingConfigException
+from simple_logging_config import LoggingHandlerException
 
 logger = logging.getLogger(__name__)
 
@@ -85,13 +85,13 @@ class TestNamedConfigs:
         """
         Test exception raised if invalid config requested.
         """
-        with pytest.raises(InvalidLoggingConfigException):
+        with pytest.raises(LoggingConfigException):
             configure_logging(config="bad_config_name")
 
     def test_undefined_handler(self):
         """
-        Test exception raised when trying to find a named handler.
+        Test exception raised when trying to find an undefined handler.
         """
-        with pytest.raises(InvalidHandlerException):
+        with pytest.raises(LoggingHandlerException):
             #  pylint: disable=protected-access
             configure_logging()._get_handler('bad_handler')

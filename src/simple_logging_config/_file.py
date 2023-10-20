@@ -3,7 +3,6 @@ Methods to support file handler related aspects of logging configuation.
 """
 
 from pathlib import Path
-from os import getenv
 import logging
 import sys
 

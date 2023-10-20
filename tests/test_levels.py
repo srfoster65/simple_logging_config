@@ -9,6 +9,7 @@ import logging
 import pytest
 
 from simple_logging_config import configure_logging
+from simple_logging_config import LoggingHandlerException
 
 
 logger = logging.getLogger(__name__)
@@ -110,3 +111,31 @@ class TestLevels:
                 for handler in handlers:
                     if handler.name == handler_name:
                         assert handler.level == expected_level
+
+    @pytest.mark.parametrize(
+        "levels",
+        [
+            ("undefined_level"),
+            ("['bad_type']"),
+        ],
+    )
+    def test_bad_levels(self, levels):
+        """
+        Test verbosity param sets default handler level.
+        """
+        with pytest.raises(ValueError):
+            configure_logging(levels=levels)
+
+
+    @pytest.mark.parametrize(
+        "levels",
+        [
+            ("{'undefined_handler': 10}"),
+        ],
+    )
+    def test_bad_handler_in_level(self, levels):
+        """
+        Test a bad handler name raises exception
+        """
+        with pytest.raises(LoggingHandlerException):
+            configure_logging(levels=levels)

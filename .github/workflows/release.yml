@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/arg-init
+      url: https://pypi.org/p/simple-logging-config
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 

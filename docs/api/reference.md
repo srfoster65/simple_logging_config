@@ -23,7 +23,7 @@ from simple_logging_config import configure_logging
 configure_logging()
 ```
 
-See [API Examples](api_examples.md) for more detailed use cases.
+See [API Examples](examples.md) for more detailed use cases.
 
 ### Handler Logging Levels
 

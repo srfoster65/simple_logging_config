@@ -3,7 +3,7 @@ site_description: "Package to simplify logging configuration."
 repo_url: "https://github.com/srfoster65/simple_logging_config"
 repo_name: "srfoster65/simple_logging_config"
 site_dir: "site"
-watch: [readme.md, docs/index.md, docs/usage.md, docs/license.md, docs/changelog.md]
+watch: [readme.md]
 
 theme:
   name: material
@@ -16,7 +16,6 @@ theme:
     primary: blue
 
 nav:
-  # - Usage:
     - Documentation:
       - index.md
       - Usage: usage.md
@@ -29,9 +28,6 @@ nav:
       - Design: design.md
     - Changelog: changelog.md
     - License: license.md
-  # - Development:
-  #   - Contributing: contributing.md
-  #   - Code of Conduct: code_of_conduct.md
 
 # extra_css:
 #   - css/style.css

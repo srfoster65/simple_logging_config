@@ -68,17 +68,21 @@ class SimpleLoggingConfig(metaclass=Singleton):
         ArgInit(env_prefix=ENV_PREFIX, func_is_bound=True, args=args)
         config_data = get_logging_config(self.config)
         modify_formatters(config_data)
-        modify_log_file_attributes(config_data, self.log_file_path, self.backup_count)
+        modify_log_file_attributes(config_data, self._log_file_path, self._backup_count)
         logging.config.dictConfig(config_data)
         # Take a copy of current handler names in case other modules add more
         # later i.e. pytest. This is to allow the tearing down (reset) of SLC.
         self._handlers = [handler.name for handler in logging.getLogger().handlers]
         rotate_log()
-        filter_module_logging(self.modules)
+        filter_module_logging(self._modules)
         add_print_logging_level()
         add_trace_logging_level()
-        set_levels(self.levels if self.levels else VERBOSE_MAPPING.get(self.verbose))
+        set_levels(self._levels if self._levels else VERBOSE_MAPPING.get(self._verbose))
         self._report_logging_config()
+
+    @property
+    def config(self):
+        return self._config
 
     def reset(self) -> None:
         """

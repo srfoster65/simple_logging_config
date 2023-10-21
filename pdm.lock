@@ -6,19 +6,19 @@ groups = ["default", "dev", "test", "docs"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:1249a22dbaf085e06a217f309cf5592d140aaab35fcddc10dde4216993496a72"
+content_hash = "sha256:120e6761f1977da493e2b864a5e6cf711463c109da1a04aff6354c1df0e0ee63"
 
 [[package]]
 name = "arg-init"
-version = "0.0.3"
+version = "0.0.4"
 requires_python = ">=3.8"
 summary = "Resolve argument values from arg, env or default values"
 dependencies = [
     "python-box>=7.0.1",
 ]
 files = [
-    {file = "arg_init-0.0.3-py3-none-any.whl", hash = "sha256:69d45ca0aad475765cda9648fb83bea7716da5c6a383d32c52d1bc65815c47f7"},
-    {file = "arg_init-0.0.3.tar.gz", hash = "sha256:966937a40066036ae3b6afd2146e5ea5e0271c181b1870a905b5705d26079667"},
+    {file = "arg_init-0.0.4-py3-none-any.whl", hash = "sha256:f645798f5ac4740b69730628f9bb05e13d361211222e702f6b42e412c6764acf"},
+    {file = "arg_init-0.0.4.tar.gz", hash = "sha256:4f2ce34e435dcb438110a6eb3649e488a177fdc57132504ac45431d3e48d56a9"},
 ]
 
 [[package]]
@@ -29,6 +29,27 @@ summary = "Internationalization utilities"
 files = [
     {file = "Babel-2.13.0-py3-none-any.whl", hash = "sha256:fbfcae1575ff78e26c7449136f1abbefc3c13ce542eeb13d43d50d8b047216ec"},
     {file = "Babel-2.13.0.tar.gz", hash = "sha256:04c3e2d28d2b7681644508f836be388ae49e0cfe91465095340395b60d00f210"},
+]
+
+[[package]]
+name = "black"
+version = "23.10.0"
+requires_python = ">=3.8"
+summary = "The uncompromising code formatter."
+dependencies = [
+    "click>=8.0.0",
+    "mypy-extensions>=0.4.3",
+    "packaging>=22.0",
+    "pathspec>=0.9.0",
+    "platformdirs>=2",
+]
+files = [
+    {file = "black-23.10.0-cp311-cp311-macosx_10_16_arm64.whl", hash = "sha256:30b78ac9b54cf87bcb9910ee3d499d2bc893afd52495066c49d9ee6b21eee06e"},
+    {file = "black-23.10.0-cp311-cp311-macosx_10_16_x86_64.whl", hash = "sha256:0e232f24a337fed7a82c1185ae46c56c4a6167fb0fe37411b43e876892c76699"},
+    {file = "black-23.10.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:31946ec6f9c54ed7ba431c38bc81d758970dd734b96b8e8c2b17a367d7908171"},
+    {file = "black-23.10.0-cp311-cp311-win_amd64.whl", hash = "sha256:c870bee76ad5f7a5ea7bd01dc646028d05568d33b0b09b7ecfc8ec0da3f3f39c"},
+    {file = "black-23.10.0-py3-none-any.whl", hash = "sha256:e223b731a0e025f8ef427dd79d8cd69c167da807f5710add30cdf131f13dd62e"},
+    {file = "black-23.10.0.tar.gz", hash = "sha256:31b9f87b277a68d0e99d2905edae08807c007973eaa609da5f0c62def6b7c0bd"},
 ]
 
 [[package]]
@@ -318,6 +339,16 @@ summary = "Extension pack for Python Markdown and MkDocs Material."
 files = [
     {file = "mkdocs_material_extensions-1.3-py3-none-any.whl", hash = "sha256:0297cc48ba68a9fdd1ef3780a3b41b534b0d0df1d1181a44676fda5f464eeadc"},
     {file = "mkdocs_material_extensions-1.3.tar.gz", hash = "sha256:f0446091503acb110a7cab9349cbc90eeac51b58d1caa92a704a81ca1e24ddbd"},
+]
+
+[[package]]
+name = "mypy-extensions"
+version = "1.0.0"
+requires_python = ">=3.5"
+summary = "Type system extensions for programs checked with the mypy type checker."
+files = [
+    {file = "mypy_extensions-1.0.0-py3-none-any.whl", hash = "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d"},
+    {file = "mypy_extensions-1.0.0.tar.gz", hash = "sha256:75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782"},
 ]
 
 [[package]]

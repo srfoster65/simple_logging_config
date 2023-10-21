@@ -165,10 +165,13 @@ cython_debug/
 /test.py
 /test*.py
 
+# Test results
+test-results.xml
+
 # log files
 *.log
 /*.log.*
 
 # vscode config files
-/.vscode
+/.vscode/
 

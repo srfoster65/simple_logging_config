@@ -15,14 +15,14 @@ from ._defaults import (
 def add_logging_level(level_name: str, level: int) -> None:
     """Add support for a new logging level."""
 
-    def log_for_level(self, message, *args, **kwargs):
+    def log_for_level(self, message, *args, **kwargs):  # pragma: no cover
         if self.isEnabledFor(level):
             # Note: self._log takes *args parameter as args
             self._log(  # pylint: disable=protected-access
                 level, message, args, **kwargs
             )
 
-    def log_to_root(message, *args, **kwargs):
+    def log_to_root(message, *args, **kwargs):  # pragma: no cover
         logging.log(level, message, args, **kwargs)
 
     level_function = level_name.lower()

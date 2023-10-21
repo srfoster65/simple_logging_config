@@ -11,7 +11,7 @@ from simple_logging_config import add_logging_arguments
 logger = logging.getLogger(__name__)
 
 
-class TestPrintFunctions:
+class TestArguments:
     """
     Class to test default config .
     """
@@ -22,7 +22,8 @@ class TestPrintFunctions:
         """
         parser = ArgumentParser(description="Test Program")
         add_logging_arguments(parser)
-        args = parser.parse_args()
+        # Must use parse_known_args() as parser includes pytest args
+        args, _ = parser.parse_known_args()
         args_dict = vars(args)
         assert "config" in args_dict
         assert "verbose" in args_dict

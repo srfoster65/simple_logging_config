@@ -24,10 +24,9 @@ class TestArguments:
         add_logging_arguments(parser)
         # Must use parse_known_args() as parser includes pytest args
         args, _ = parser.parse_known_args()
-        args_dict = vars(args)
-        assert "config" in args_dict
-        assert "verbose" in args_dict
-        assert "levels" in args_dict
-        assert "modules" in args_dict
-        assert "log_file_path" in args_dict
-        assert "backup_count" in args_dict
+        assert args.config is None
+        assert args.verbose == 0
+        assert args.levels is None
+        assert args.modules is None
+        assert args.log_file_path is None
+        assert args.backup_count is None

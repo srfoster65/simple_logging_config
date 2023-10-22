@@ -57,8 +57,8 @@ configure_logging(**vars(args))
 Your script will now accept additional CLI paramaters to configure logging at runtime as shown below.
 
 ```python
-usage: myscript.py [-h] [-v | --slc_level LEVELS] [--slc_modules [MODULES ...]] [--slc_log_file_path LOG_FILE_PATH]
-               [--slc_backup_count BACKUP_COUNT] [--slc_config {dual,dual_rotating,dual_detailed,console,file,rotating_file}]      
+usage: myscript.py [-h] [-v | --slc-level LEVELS] [--slc-modules [MODULES ...]] [--slc-log-file-path LOG_FILE_PATH]
+               [--slc-backup-count BACKUP_COUNT] [--slc-config {dual,dual_rotating,dual_detailed,console,file,rotating_file}]      
 
 Test Program
 
@@ -66,19 +66,19 @@ options:
   -h, --help            show this help message and exit
   -v, --verbose         The level of logging verbosity for the default handler. Use multiple times (up to -vvv) for increased      
                         verbosity.
-  --slc_level LEVELS, --slc_levels LEVELS
+  --slc-level LEVELS, --slc-levels LEVELS
                         The log level(s) to be applied to attached handlers. This value can be a single integer or a string        
                         representing a defined log level. Or it can be a string representing a dictionary where key/value pairs    
                         are handler names and the log level to be associated with that handler
-  --slc_modules [MODULES ...]
+  --slc-modules [MODULES ...]
                         The names of the modules to be logged. If omitted all modules are logged.
-  --slc_log_file_path LOG_FILE_PATH
+  --slc-log-file-path LOG_FILE_PATH
                         The path the log file will be saved to. If this is a folder, the log file will be saved to this folder     
                         with the file name derived from the name of the calling script. Otherwise, assume this is a full path to   
                         a named log file.
-  --slc_backup_count BACKUP_COUNT
+  --slc-backup-count BACKUP_COUNT
                         An integer specifying The number of backup log files to retain.
-  --slc_config {dual,dual_rotating,dual_detailed,console,file,rotating_file}
+  --slc-config {dual,dual_rotating,dual_detailed,console,file,rotating_file}
                         The name of the logging config to be used.
 
 ```

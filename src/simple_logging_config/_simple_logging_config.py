@@ -91,7 +91,9 @@ class SimpleLoggingConfig(metaclass=Singleton):
         logger.debug("Reset simple_logging_config")
         logger.debug("Removing handlers: %s", self._handlers)
         for handler_name in self._handlers:
-            logging.root.removeHandler(self._get_handler(handler_name))
+            handler = self._get_handler(handler_name)
+            handler.close()
+            logging.root.removeHandler(handler)
         SimpleLoggingConfig.clear()
 
     def __str__(self):

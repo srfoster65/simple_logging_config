@@ -6,12 +6,14 @@ Test support for logging to file functions.
 
 from os import makedirs, listdir
 from pathlib import Path
+from shutil import rmtree
 import logging
 
 import pytest
 
 from simple_logging_config import configure_logging, rotate_log
 
+LOGS_FOLDER = "logs"
 
 @pytest.fixture(scope="function", autouse=True)
 def configure():
@@ -20,6 +22,9 @@ def configure():
     """
     yield
     configure_logging().reset()
+    # clean up any log files created during the test
+    if Path(LOGS_FOLDER).exists():
+        rmtree(LOGS_FOLDER)
 
 
 class TestLogFileSettings:
@@ -39,7 +44,7 @@ class TestLogFileSettings:
         """
         Test log file path can be set as a folder
         """
-        log_file_path_as_path = "log_file_path_as_folder"
+        log_file_path_as_path = LOGS_FOLDER
         makedirs(Path(log_file_path_as_path), exist_ok=True)
         configure_logging(log_file_path=log_file_path_as_path)
         assert Path(log_file_path_as_path).is_dir()
@@ -48,7 +53,7 @@ class TestLogFileSettings:
         """
         Test rotating handler creates 5 backups
         """
-        log_file_path_as_path = "log_file_path_rotating_5"
+        log_file_path_as_path = LOGS_FOLDER
         backup_count = 5  # default
         makedirs(Path(log_file_path_as_path), exist_ok=True)
         configure_logging(config="rotating_file", log_file_path=log_file_path_as_path)
@@ -65,7 +70,7 @@ class TestLogFileSettings:
         """
         Test setting number of backup files
         """
-        log_file_path_as_path = "log_file_path_rotating_3"
+        log_file_path_as_path = LOGS_FOLDER
         backup_count = 3
         makedirs(Path(log_file_path_as_path), exist_ok=True)
         configure_logging(

@@ -15,6 +15,7 @@ configure_logging() takes 6 optional parameters
 
 Additionally, behaviour can also be modified by the use of environment variables.
 
+Note: Names use "_" separator in the function signature as opposed to "-" in command line parameters.  
 Note: Some behaviours can **only** be updated by the use of environemnt variables.
 
 ```python
@@ -145,5 +146,5 @@ from simple_logging_config import configure_logging
 from simple_logging_config import set_level
 
 configure_logging()
-set_level(["DEBUG", "TRACE"])
+set_level({"console": "DEBUG", "file": "TRACE"})
 ```

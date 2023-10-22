@@ -23,7 +23,7 @@ def add_logging_arguments(parser):
         ),
     )
     group.add_argument(
-        "--slc_level", "--slc_levels",
+        "--slc-level", "--slc-levels",
         dest="levels",
         type=str,
         help=(
@@ -35,7 +35,7 @@ def add_logging_arguments(parser):
         ),
     )
     parser.add_argument(
-        "--slc_modules",
+        "--slc-modules",
         dest="modules",
         nargs="*",
         type=str,
@@ -45,7 +45,7 @@ def add_logging_arguments(parser):
         ),
     )
     parser.add_argument(
-        "--slc_log_file_path",
+        "--slc-log-file-path",
         dest="log_file_path",
         type=str,
         help=(
@@ -56,13 +56,13 @@ def add_logging_arguments(parser):
         ),
     )
     parser.add_argument(
-        "--slc_backup_count",
+        "--slc-backup-count",
         dest="backup_count",
         type=int,
         help=("An integer specifying The number of backup log files to retain."),
     )
     parser.add_argument(
-        "--slc_config",
+        "--slc-config",
         dest="config",
         choices=configs,
         type=str,

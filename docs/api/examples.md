@@ -72,5 +72,5 @@ Any combination of parameters can be combined to achieve the desired logging con
 + Use the config 'dual_rotating'
 
 ```python
-configure_logging('debug', slc_modules=['MyPackage'], slc_backup_count=5, slc_path='my_log', slc_config='dual_rotating)
+configure_logging(slc_levels='debug', slc_modules=['MyPackage'], slc_backup_count=5, slc_path='my_log', slc_config='dual_rotating)
 ```

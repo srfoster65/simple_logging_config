@@ -15,6 +15,7 @@ from ._exceptions import (
     LoggingConfigException,
     LoggingHandlerException,
 )
+from ._file import rotate_log
 from ._level import set_levels
 from ._simple_logging_config import SimpleLoggingConfig
 
@@ -28,6 +29,7 @@ __all__ = [
     "configure_logging",
     "reset_logging",
     "set_levels",
+    "rotate_log",
     "add_logging_arguments",
     "add_logging_level",
     "add_print_logging_level",

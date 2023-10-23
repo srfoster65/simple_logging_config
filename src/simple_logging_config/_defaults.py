@@ -20,6 +20,5 @@ PRINT_LOGGING_NAME = "PRINT"
 TRACE_LOGGING_LEVEL = logging.DEBUG - 5
 TRACE_LOGGING_NAME = "TRACE"
 
-
 # Map the verbosity level to a logging level
 VERBOSE_MAPPING = {0: None, 1: 20, 2: 10, 3: 5}  # Not set, Info, Debug, Trace

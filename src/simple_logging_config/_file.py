@@ -61,9 +61,9 @@ def modify_log_file_attributes(
     _set_log_file_backup_count(config_data, backup_count)
 
 
-def rotate_log() -> None:
+def rotate_log(handlers) -> None:
     """Rotate the log."""
-    for handler in logging.getLogger().handlers:
+    for handler in handlers:
         if hasattr(handler, "doRollover"):
             logger.debug("Rotating log")
             handler.doRollover()

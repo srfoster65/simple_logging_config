@@ -92,7 +92,7 @@ def _set_handler_log_levels(levels: dict) -> None:
             raise LoggingHandlerException(handler_name)
 
 
-def set_levels(levels: int | str | None) -> None:
+def set_log_levels(levels: int | str | None) -> None:
     """
     Adjust logging levels for root logger and attached handlers.
     """

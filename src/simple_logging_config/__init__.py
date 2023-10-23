@@ -10,7 +10,6 @@ from ._add_logging_level import (
     add_trace_logging_level,
 )
 from ._configure import configure_logging
-from ._configure import reset_logging
 from ._exceptions import (
     LoggingConfigException,
     LoggingHandlerException,
@@ -27,7 +26,6 @@ logging.getLogger(__name__).addHandler(logging.NullHandler())
 __all__ = [
     "SimpleLoggingConfig",
     "configure_logging",
-    "reset_logging",
     "set_levels",
     "rotate_log",
     "add_logging_arguments",

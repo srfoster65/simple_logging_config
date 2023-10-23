@@ -7,13 +7,6 @@ import logging
 ENV_PREFIX = "SLC"
 
 # Environment variable names
-# All environment variable names start with the prefix as defined by ENV_PRFIX
-DEFAULT_VERBOSITY_ENV = "_".join([ENV_PREFIX, "VERBOSITY"])
-DEFAULT_LOG_LEVELS_ENV =  "_".join([ENV_PREFIX, "LOG_LEVELS"])
-DEFAULT_LOGGING_MODULES_ENV =  "_".join([ENV_PREFIX, "MODULES"])
-DEFAULT_LOG_FILE_PATH_ENV =  "_".join([ENV_PREFIX, "LOG_FILE_PATH"])
-DEFAULT_LOG_FILE_BACKUP_COUNT_ENV =  "_".join([ENV_PREFIX, "LOG_FILE_BACKUP_COUNT"])
-DEFAULT_LOGGING_CONFIG_ENV =  "_".join([ENV_PREFIX, "CONFIG"])
 CUSTOM_FORMAT_TEMPLATE_ENV =  "_".join([ENV_PREFIX, "{handler_name}", "FORMAT"])
 
 # Default values

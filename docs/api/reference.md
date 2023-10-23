@@ -3,33 +3,47 @@
 ## configure_logging
 
 This is the primary API used to configure logging for a script/program.
+Returns a SimpleLoggingConfig object
 
 configure_logging() takes 6 optional parameters
 
-+ verbose: Similar to slc_levels. An integter representing the verbosity level. 0: Default, 1: Info, 2: Debug, 3: Trace
-+ slc_levels: The log level(s) to use.
-+ slc_modules: A list of modules that logging should be enabled for
-+ slc_log_file_path: The location where a log file should be created (if applicable).
-+ slc_backup_count: The number of backup log files to keep (if applicable).
-+ slc_config: The name of the logging configuration to use.
++ verbose: An integter representing the verbosity level.
++ levels: The log level(s) to use.
++ modules: A list of modules that logging should be enabled for.
++ log_file_path: The location where a log file should be created (if applicable).
++ backup_count: The number of backup log files to keep (if applicable).
++ config: The name of the logging configuration to use.
 
 Additionally, behaviour can also be modified by the use of environment variables.
 
 Note: Names use "_" separator in the function signature as opposed to "-" in command line parameters.  
 Note: Some behaviours can **only** be updated by the use of environemnt variables.
 
-```python
-from simple_logging_config import configure_logging
-
-configure_logging()
-```
-
-See [API Examples](examples.md) for more detailed use cases.
+See [API Examples](examples.md) for example use cases.
 
 ### Handler Logging Levels
 
-slc_levels sets the log level for each handler defined in the selected config. The first value is applied to the first handler, etc. If less values are supplied than attached handlers then the remaining handlers' log level are unchanged.
-Each level can be an integer or string defining a configured level. If a value of None (or '-') is specified then the level is unchanged.
+The options **verbose** and **levels** are mutually exclusive and both can be used to adjust the logging levels.
+
+#### verbose
+
+Verbose is an integer used to change the logging level of the default handler:
+
++ 0: unchanged
++ 1: info
++ 2: debug
++ 3: trace
+
+#### levels
+
+levels sets the log level for specific handlers.  
+This can either a single value or a dictionary where the key is the name of the handler and the value the level to apply to that handler. If a single value is provided, this is applied to the default handler. The level value can be an integer or string representing a named level.
+
+e.g.
+
++ levels=20
++ levels="info"
++ levels={"console": "debug", "file": "debug"}
 
 #### Handler Logging Level Defaults
 
@@ -38,7 +52,7 @@ If no environment variable is defined then the logging levels are unchanged.
 
 ### Modules
 
-slc_modules is a list of modules names that logging should be enabled for. No other modules will emit any log messages. If this value is unset then logging will be enabled for all modules.
+modules is a list of modules names that logging should be enabled for. No other modules will emit any log messages. If this value is unset then logging will be enabled for all modules.
 Default behaviour is to enable logging for all modules.
 
 #### Module Defaults
@@ -46,38 +60,36 @@ Default behaviour is to enable logging for all modules.
 If no parameter is provided then the environment variable "SLC_DEFAULT_MODULES" will be used.
 If no environemnt variable is provided, logging shall be enabled for all modules
 
-### Path
+### Log File Path
 
-The path (or filename) to use when logging to file (if applicable). If file logging is not supported by the selected config this parameter is ignored.
-If path is a folder, the the log is saved to this folder, using the name of the calling script, with a ".log" suffix.
-Else it is assumed that path specifies a filename that should be used to save the log to.
+log_file_path is used to set the path (or filename) to use when logging to file. If file logging is not supported by the selected config this parameter is ignored.
+If log_file_path is an existing folder, the log is saved to this folder, using the name of the calling script, with a ".log" suffix. Else it is assumed that log_file_path specifies a filename that should be used to save the log to in the current working directory.
 
-#### Path Defaults
+#### Log File Path Defaults
 
-If no paramter is provided then the environment variable "LOGGING_DEFAULT_LOG_FILE_PATH" will be used.
+If no paramter is provided then the environment variable "SLC_LOG_FILE_PATH" will be used.  
 If no environment variable is defined then the log file will be saved to the current working directory with the name of the calling script and a .log file extension.
 
 The path can be selected when initialising SimpleLoggingConfig for the first time. Once set it cannot be changed.
+
 This parameter has no effect if used with a config that does not support logging to file.
 
 ### Backup Count
 
-The number of backup copies of the log file to retain.
-This defaults to 0. i.e. No backups are retained.
+backup_count is the number of backup copies of log files to retain.
 
-#### Backupcount Defaults
+#### Backup Count Defaults
 
-If no paramter is provided then the environment variable "LOGGING_DEFAULT_LOG_FILE_BACKUP_COUNT" will be used.
-If no environment variable is defined then no backups will be retained
+If no paramter is provided then the environment variable "SLC_LOG_FILE_BACKUP_COUNT" will be used.  
+If no environment variable is defined this default to 5.
 
-The backup count can be set when initialising SimpleLoggingConfig for the first time. Once set it cannot be changed.
-This parameter has no effect if used with a config that does not support logging to file.
+This parameter has no effect if used with a config that does not support rotating file handlers.
 
 ### Config
 
 The name of the config to use for logging.
 
-Several configurations are provided:
+The following are supported configs and their associated handlers and formats used for each handler:
 
 + **dual:**
     + console handler - brief : INFO
@@ -100,9 +112,6 @@ Several configurations are provided:
 If no paramter is provided then the environment variable "LOGGING_DEFAULT_CONFIG" will be used.
 If no environment variable is defined then the config named "dual" will be used.
 
-The config can be selected when initialising SimpleLoggingConfig for the first time. Once selected it cannot be changed.
-
-
 ### Formatters
 
 There are 2 formatters defined for the various configs.
@@ -122,29 +131,36 @@ set SLC_CONSOLE_FORMAT=%(levelname)s %(message)s
 
 Note: Setting this value incorrectly may cause logging to raise an exception.
 
-## print_logging_config
+## SimpleLoggingConfig
 
-Display information relating to the current logging configuration.
+The class used to implement logging configuration
+
+An instance of SimpleLoggingConfig is returned by configure_logging(), or it can be initialised directly.
+
+### Methods
+
+#### Set Log Levels
+
+Used to adjust logging levels post initialisation.
 
 ```python
-from simple_logging_config import print_logging_config
-
-print_logging_config()
+SimpleLoggingConfig().set_levels()
 ```
 
-## Set Logging Level
+Where level is a single value or a dictionary. If a single value is provided, this is applied to the default handler. If a dictionary is provided, the key represents the name of the handler and the value the log level to apply to that handler. The level value can be an integer or string representing a named level.
 
-To modify the logging level after SimpleLoggingConfig has been configured use set_level().
-This call takes a list of values, where the 1st value is applied to the first handler, etc.
-A value of None or "-" will leave the level unchanged for that handler.
-If less values are supplied than handlers, then only the handlers for which a level is provided will be updated.
+#### Rotate
 
-The following call will set the output of the first handler to DEBUG and the output of the second handler to TRACE level.
+Call doRollover on any handlers that support log rotation
 
 ```python
-from simple_logging_config import configure_logging
-from simple_logging_config import set_level
+SimpleLoggingConfig().rotate()
+```
 
-configure_logging()
-set_level({"console": "DEBUG", "file": "TRACE"})
+#### Reset
+
+Tear down SimpleLoggingConfig. Used for testing only
+
+```python
+SimpleLoggingConfig().reset()
 ```

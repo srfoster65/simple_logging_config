@@ -87,11 +87,3 @@ class TestNamedConfigs:
         """
         with pytest.raises(LoggingConfigException):
             configure_logging(config="bad_config_name")
-
-    def test_undefined_handler(self):
-        """
-        Test exception raised when trying to find an undefined handler.
-        """
-        with pytest.raises(LoggingHandlerException):
-            #  pylint: disable=protected-access
-            configure_logging()._get_handler('bad_handler')

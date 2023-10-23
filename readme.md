@@ -56,7 +56,7 @@ configure_logging(**vars(args))
 
 Your script will now accept additional CLI paramaters to configure logging at runtime as shown below.
 
-```python
+```text
 usage: myscript.py [-h] [-v | --slc-level LEVELS] [--slc-modules [MODULES ...]] [--slc-log-file-path LOG_FILE_PATH]
                [--slc-backup-count BACKUP_COUNT] [--slc-config {dual,dual_rotating,dual_detailed,console,file,rotating_file}]      
 

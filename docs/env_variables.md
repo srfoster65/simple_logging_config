@@ -14,25 +14,31 @@ When logging is initialised, the following precedence applies:
 
 ## Supported Environment Variables
 
-### SLC_DEFAULT_CONFIG
+### SLC_CONFIG
 
 Define the default configuration to be used when initialising logging.
 
 The value should be a string that represents a valid logging configuration.
 
-### SLC_DEFAULT_LOG_LEVELS
+### SLC_VERBOSE
+
+Define the verbosity level to be used.
+
+The value should be an integer in the range of 0 to 3.
+
+### SLC_LEVELS
 
 Define the default logging levels to be used for each handler.
 
-The value should be a string, or list of strings, with a value for each handler. Values are applied to handlers in order. Once the list of values is used up, remaining handlers keep their originally configured log level.
+The value should be a string or a string representing a python dictionary. See [here](/api/reference/#levels) for more information.
 
-### SLC_DEFAULT_MODULES
+### SLC_MODULES
 
 Define the python modules that logging should be enabled for. Only defined modules will emit logging messages. Log levels still apply to the associated handlers.
 
-The value should be a string, or list of strings.
+The value should be a string representing a python list. See [here](/api/reference/#modules) for more information.
 
-### SLC_DEFAULT_LOG_FILE_PATH
+### SLC_LOG_FILE_PATH
 
 Define the folder or path and file name that log files should be written to.
 
@@ -40,7 +46,7 @@ The value should be string.
 
 Note: This has no effect if no file handlers are defined.
 
-### SLC_DEFAULT_LOG_FILE_BACKUP_COUNT
+### SLC_BACKUP_COUNT
 
 Define the number of backup files to maintain if using a rotating file handler.
 

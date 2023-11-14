@@ -2,6 +2,10 @@
 
 ## configure_logging
 
+```python
+configure_logging(config=None, verbose=None, levels=None, modules=None, log_file_path=None, backup_count=None, **kwargs) -> SimpleLoggingConfig
+```
+
 This is the primary API used to configure logging for a script/program.
 Returns a SimpleLoggingConfig object
 
@@ -23,7 +27,7 @@ See [API Examples](examples.md) for example use cases.
 
 ### Handler Logging Levels
 
-The options **verbose** and **levels** are mutually exclusive and both can be used to adjust the logging levels.
+The options **verbose** and **levels** are mutually exclusive. Both can be used to adjust the logging levels. If levels is defined then this will be used in preference to verbose.
 
 #### verbose
 
@@ -33,6 +37,11 @@ Verbose is an integer used to change the logging level of the default handler:
 + 1: info
 + 2: debug
 + 3: trace
+
+#### Verbose Defaults
+
+If no parameter is provided then the environment variable "SLC_VERBOSE" will be used.
+If no environment variable is defined then the logging levels are unchanged.
 
 #### levels
 
@@ -47,7 +56,7 @@ e.g.
 
 #### Handler Logging Level Defaults
 
-If no parameter is provided then the environment variable "SLC_DEFAULT_LOG_LEVEL" will be used.
+If no parameter is provided then the environment variable "SLC_LEVELS" will be used.
 If no environment variable is defined then the logging levels are unchanged.
 
 ### Modules
@@ -57,7 +66,7 @@ Default behaviour is to enable logging for all modules.
 
 #### Module Defaults
 
-If no parameter is provided then the environment variable "SLC_DEFAULT_MODULES" will be used.
+If no parameter is provided then the environment variable "SLC_MODULES" will be used.
 If no environemnt variable is provided, logging shall be enabled for all modules
 
 ### Log File Path
@@ -80,7 +89,7 @@ backup_count is the number of backup copies of log files to retain.
 
 #### Backup Count Defaults
 
-If no paramter is provided then the environment variable "SLC_LOG_FILE_BACKUP_COUNT" will be used.  
+If no paramter is provided then the environment variable "SLC_BACKUP_COUNT" will be used.  
 If no environment variable is defined this default to 5.
 
 This parameter has no effect if used with a config that does not support rotating file handlers.
@@ -109,7 +118,7 @@ The following are supported configs and their associated handlers and formats us
 
 #### Config Defaults
 
-If no paramter is provided then the environment variable "LOGGING_DEFAULT_CONFIG" will be used.
+If no paramter is provided then the environment variable "SLC_CONFIG" will be used.
 If no environment variable is defined then the config named "dual" will be used.
 
 ### Formatters
@@ -133,18 +142,24 @@ Note: Setting this value incorrectly may cause logging to raise an exception.
 
 ## SimpleLoggingConfig
 
+### Initialisation
+
+```python
+SimpleLoggingConfig(config=None, verbose=None, levels=None, modules=None, log_file_path=None, backup_count=None, **kwargs)
+```
+
 The class used to implement logging configuration
 
 An instance of SimpleLoggingConfig is returned by configure_logging(), or it can be initialised directly.
 
 ### Methods
 
-#### Set Log Levels
+#### Set Levels
 
 Used to adjust logging levels post initialisation.
 
 ```python
-SimpleLoggingConfig().set_levels()
+set_levels(levels)
 ```
 
 Where level is a single value or a dictionary. If a single value is provided, this is applied to the default handler. If a dictionary is provided, the key represents the name of the handler and the value the log level to apply to that handler. The level value can be an integer or string representing a named level.
@@ -154,7 +169,7 @@ Where level is a single value or a dictionary. If a single value is provided, th
 Call doRollover on any handlers that support log rotation
 
 ```python
-SimpleLoggingConfig().rotate()
+rotate()
 ```
 
 #### Reset
@@ -162,5 +177,5 @@ SimpleLoggingConfig().rotate()
 Tear down SimpleLoggingConfig. Used for testing only
 
 ```python
-SimpleLoggingConfig().reset()
+reset()
 ```

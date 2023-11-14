@@ -10,18 +10,8 @@ import pytest
 
 from simple_logging_config import configure_logging
 from simple_logging_config import LoggingConfigException
-from simple_logging_config import LoggingHandlerException
 
 logger = logging.getLogger(__name__)
-
-
-@pytest.fixture(scope="function", autouse=True)
-def configure():
-    """
-    Ensure logging is reset after each test.
-    """
-    yield
-    configure_logging().reset()
 
 
 class TestNamedConfigs:

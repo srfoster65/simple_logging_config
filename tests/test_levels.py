@@ -15,15 +15,6 @@ from simple_logging_config import LoggingHandlerException
 logger = logging.getLogger(__name__)
 
 
-@pytest.fixture(scope="function", autouse=True)
-def configure():
-    """
-    Ensure logging is reset after each test.
-    """
-    yield
-    configure_logging().reset()
-
-
 class TestLevels:
     """
     Class to test default config for simple_logging_config is correctly instantiated.

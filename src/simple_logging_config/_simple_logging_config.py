@@ -19,7 +19,7 @@ names.
 import logging
 import logging.config
 
-from arg_init import ArgInit, Arg
+from arg_init import ClassArgInit, ArgDefaults
 
 from ._add_logging_level import add_print_logging_level, add_trace_logging_level
 from ._defaults import (
@@ -35,6 +35,8 @@ from ._formatters import modify_formatters
 from ._logging_config import get_logging_config
 from ._level import set_log_levels
 from ._singleton import Singleton
+
+from pathlib import Path
 
 
 logger = logging.getLogger(__name__)
@@ -59,17 +61,19 @@ class SimpleLoggingConfig(metaclass=Singleton):
         """
         Configure logging to provide default logging facilities.
         """
-        args = (
-            Arg("config", default=DEFAULT_LOGGING_CONFIG),
-            Arg("log_file_path", default=DEFAULT_LOG_FILE_PATH),
-            Arg("backup_count", default=DEFAULT_LOG_FILE_BACKUP_COUNT),
+        defaults = (
+            ArgDefaults("config", default_value=DEFAULT_LOGGING_CONFIG),
+            ArgDefaults("log_file_path", default_value=DEFAULT_LOG_FILE_PATH),
+            ArgDefaults("backup_count", default_value=DEFAULT_LOG_FILE_BACKUP_COUNT),
         )
-        ArgInit(env_prefix=ENV_PREFIX, func_is_bound=True, args=args)
+        ClassArgInit(env_prefix=ENV_PREFIX, defaults=defaults)
+        print('@'*100)
+        print(Path().resolve())
         config_data = get_logging_config(self.config)
         modify_formatters(config_data)
         modify_log_file_attributes(config_data, self._log_file_path, self._backup_count)
         logging.config.dictConfig(config_data)
-        # Take a copy of current handler in case other modules add more later.
+        # Take a copy of current handlers in case other modules add more later.
         # i.e. pytest. This is to allow the tearing down (reset) of SLC.
         self._handlers = logging.getLogger().handlers.copy()
         self.rotate()

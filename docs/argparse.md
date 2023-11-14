@@ -14,10 +14,10 @@ Calling add_logging_arguments(parser) with a parser object as a parameter will a
 - slc-backup-count
 - slc-config
 
-Having called parser.parse_args(), the return value can be passed into the constructor of SimpleLoggingConfig as follows:
+Having called parser.parse_args(), the return value can be passed into configure_logging() as follows:
 
 ```python
-SimpleLoggingConfig(**vars(args))
+configure_logging(**vars(args))
 ```
 
 The following example shows how to add logging support to your CLI program.
@@ -27,13 +27,13 @@ The following example shows how to add logging support to your CLI program.
 
 from argparse import ArgumentParser
 from simple_logging_config import add_logging_arguments
-from simple_logging_config import SimpleLoggingConfig
+from simple_logging_config import configure_logging
 
 parser = ArgumentParser(description='Example Program')
 add_logging_arguments(parser)
 
 args = parser.parse_args()
-SimpleLoggingConfig(**vars(args))
+configure_logging(**vars(args))
 
 # Call your code here
 ```

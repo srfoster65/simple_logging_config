@@ -3,62 +3,64 @@
 
 ## Log debug messages to the console
 
+Using the verbose option
+
 ```python
-configure_logging('debug')
+configure_logging(verbose=2)
 ```
 
-or
+Or using a named log level
 
 ```python
-configure_logging(10)
+configure_logging(levels='debug')
+```
+
+or using a numeric value
+
+```python
+configure_logging(levels=10)
 ```
 
 ## Log debug messages to the console and trace messages to file
 
 ```python
-configure_logging(['debug', 'trace'])
+configure_logging(levels ={"console": 'debug', "file": 'trace'})
 ```
 
-## Leave console log level unchanged and Log trace messages to file
+## Leave console log level unchanged and log trace messages to file
 
 ```python
-configure_logging(['None', 'trace'])
-```
-
-or
-
-```python
-configure_logging(['-', 'trace'])
+configure_logging({"file": 'trace'})
 ```
 
 ## Only Log messages for the package 'MyPackage'
 
 ```python
-configure_logging(slc_modules=['MyPackage'])
+configure_logging(modules=['MyPackage'])
 ```
 
 ## Log debug messages to the console only for the package 'MyPackage'
 
 ```python
-configure_logging('debug', slc_modules=['MyPackage'])
+configure_logging(levels='debug', modules=['MyPackage'])
 ```
 
 ## Save the log to a file named my_log.log in the current working directory
 
 ```python
-configure_logging(slc_path='my_log')
+configure_logging(log_file_path='my_log')
 ```
 
-## Keep multiple backup copies of the log file
+## Keep 3 backup copies of the log file
 
 ```python
-configure_logging(config="dual_rotating", slc_backup_count=5)
+configure_logging(config="dual_rotating", backup_count=3)
 ```
 
 ## Log messages only to file
 
 ```python
-configure_logging(slc_config='file')
+configure_logging(config='file')
 ```
 
 ## A more complex use case
@@ -67,10 +69,10 @@ Any combination of parameters can be combined to achieve the desired logging con
 
 + Log debug messages to the console.
 + Only Log messages for the package 'MyPackage'.
-+ Keep multiple backup copies of the log file.
-+ Save the log to a file named my_log.log in the current working directory.
++ Save all logs in a folder named logs (folder must already exist)
++ Keep 10 backup copies of the log file.
 + Use the config 'dual_rotating'
 
 ```python
-configure_logging(slc_levels='debug', slc_modules=['MyPackage'], slc_backup_count=5, slc_path='my_log', slc_config='dual_rotating)
+configure_logging(levels='debug', modules=['MyPackage'], log_file_path='logs', backup_count=10, config='dual_rotating)
 ```

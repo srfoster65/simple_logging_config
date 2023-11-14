@@ -19,7 +19,7 @@ simple_logging_config creates logging handlers at the root level. This means tha
 - Brief
 - Detailed
 
-Note: It is possiible to customise the output format for a specific handler using environment variables.
+Note: It is possible to customise the output format for a specific handler using environment variables.
 
 ### Pre-defined Configs
 

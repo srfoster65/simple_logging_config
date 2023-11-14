@@ -7,7 +7,7 @@ Several helper functions are provided to support adding additional custom log le
 + Only CLI programs should configure the logger.
 + No library can assume additional loggers have been defined
 
-With this in mind, any library module that wishes to use an additional logging level should register the additional level itself. It should not assume that logging has been configured as it may have been called by directly by a script that has not used SimpleLoggingConfig.
+With this in mind, any library module that wishes to use an additional logging level should register the additional level itself. It should not assume that logging has been configured as it may have been called by directly by a script that has not used configure_logging().
 
 ### Add Print Logging Level
 

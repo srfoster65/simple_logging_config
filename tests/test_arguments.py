@@ -3,12 +3,16 @@ Test ArgumentParser logging arguments
 """
 
 from argparse import ArgumentParser
+from pathlib import Path
 import logging
+
+import pytest
 
 from simple_logging_config import add_logging_arguments
 
 
 logger = logging.getLogger(__name__)
+root_path = Path(__file__).parent.parent.resolve()
 
 
 class TestArguments:
@@ -16,7 +20,7 @@ class TestArguments:
     Class to test default config .
     """
 
-    def test_arguments(self):
+    def test_arguments(self, fs):
         """
         Test names of arguments match SimpleLoggingConfig API
         """

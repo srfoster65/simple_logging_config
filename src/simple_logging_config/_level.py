@@ -48,8 +48,8 @@ def _log_level_to_int(level: int | str) -> int:
     """
     try:
         return int(level)
-    except ValueError:
-        return getattr(logging, level)
+    except (ValueError, TypeError):
+        return getattr(logging, level.upper())
 
 
 def _display_level(level: int) -> str:

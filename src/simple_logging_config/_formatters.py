@@ -19,7 +19,7 @@ def modify_formatters(config_data: dict[str, Any]) -> None:
     """
     for handler_name in config_data["handlers"]:
         logger.debug(CUSTOM_FORMAT_TEMPLATE_ENV)
-        env_name =  CUSTOM_FORMAT_TEMPLATE_ENV.format(handler_name=handler_name).upper()
+        env_name = CUSTOM_FORMAT_TEMPLATE_ENV.format(handler_name=handler_name).upper()
         logger.debug("Checking formatter: %s = %s", handler_name, env_name)
         format_str = environ.get(env_name)
         if format_str is not None:

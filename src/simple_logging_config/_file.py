@@ -53,9 +53,7 @@ def _set_log_file_backup_count(config_data: dict[str, Any], count: int) -> bool:
     return False
 
 
-def modify_log_file_attributes(
-    config_data: dict[str, str], log_file_path: str, backup_count: int
-) -> None:
+def modify_log_file_attributes(config_data: dict[str, str], log_file_path: str, backup_count: int) -> None:
     """Set log file path and name and update backup count."""
     log_file = _get_log_file(log_file_path)
     _set_log_file(config_data, log_file)

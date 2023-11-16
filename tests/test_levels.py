@@ -20,9 +20,7 @@ class TestLevels:
     Class to test default config for simple_logging_config is correctly instantiated.
     """
 
-    @pytest.mark.parametrize(
-        "verbose, expected_level", [(0, 25), (1, 20), (2, 10), (3, 5)]
-    )
+    @pytest.mark.parametrize("verbose, expected_level", [(0, 25), (1, 20), (2, 10), (3, 5)])
     def test_verbose(self, verbose, expected_level):
         """
         Test verbosity param sets default handler level.
@@ -31,9 +29,7 @@ class TestLevels:
         handler = logging.getLogger().handlers[0]
         assert handler.level == expected_level
 
-    @pytest.mark.parametrize(
-        "levels, expected_level", [(25, 25), (20, 20), (10, 10), (5, 5), ("20", 20)]
-    )
+    @pytest.mark.parametrize("levels, expected_level", [(25, 25), (20, 20), (10, 10), (5, 5), ("20", 20)])
     def test_set_integer_level(self, levels, expected_level):
         """
         Test setting default handler level as an integer.
@@ -61,8 +57,8 @@ class TestLevels:
             ("{'console': '20'}", {"console": 20}),
             ("{'console': 'INFO'}", {"console": 20}),
             ("{'file': 5}", {"file": 5}),
-            ("{'console': 20, 'file': 5}", {"console": 20, 'file': 5}),
-            ("{'console': 20, 'file': 'TRACE'}", {"console": 20, 'file': 5}),
+            ("{'console': 20, 'file': 5}", {"console": 20, "file": 5}),
+            ("{'console': 20, 'file': 'TRACE'}", {"console": 20, "file": 5}),
         ],
     )
     def test_set_dict_levels(self, levels, expected_values):
@@ -85,8 +81,8 @@ class TestLevels:
             ("{'console': '20'}", {"console": 20}),
             ("{'console': 'INFO'}", {"console": 20}),
             ("{'file': 5}", {"file": 5}),
-            ("{'console': 20, 'file': 5}", {"console": 20, 'file': 5}),
-            ("{'console': 20, 'file': 'TRACE'}", {"console": 20, 'file': 5}),
+            ("{'console': 20, 'file': 5}", {"console": 20, "file": 5}),
+            ("{'console': 20, 'file': 'TRACE'}", {"console": 20, "file": 5}),
         ],
     )
     def test_set_levels_by_env(self, levels, expected_values):
@@ -116,7 +112,6 @@ class TestLevels:
         """
         with pytest.raises(ValueError):
             configure_logging(levels=levels)
-
 
     @pytest.mark.parametrize(
         "levels",

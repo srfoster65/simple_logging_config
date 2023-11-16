@@ -7,7 +7,7 @@ import logging
 ENV_PREFIX = "SLC"
 
 # Environment variable names
-CUSTOM_FORMAT_TEMPLATE_ENV =  "_".join([ENV_PREFIX, "{handler_name}", "FORMAT"])
+CUSTOM_FORMAT_TEMPLATE_ENV = "_".join([ENV_PREFIX, "{handler_name}", "FORMAT"])
 
 # Default values
 DEFAULT_LOG_FILE_PATH = "."

@@ -57,7 +57,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         modules: list[str] | None = None,
         log_file_path: Path | None = None,
         backup_count: int | None = None,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None:
         """
         Configure logging to provide default logging facilities.
@@ -76,7 +76,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         # i.e. pytest. This is to allow the tearing down (reset) of SLC.
         self._handlers = logging.getLogger().handlers.copy()
         self.rotate()
-        filter_module_logging(self._modules)  # type: ignore[attr-defined] 
+        filter_module_logging(self._modules)  # type: ignore[attr-defined]
         add_print_logging_level()
         add_trace_logging_level()
         self.set_levels(self._levels if self._levels else VERBOSE_MAPPING.get(self._verbose))  # type: ignore[attr-defined]

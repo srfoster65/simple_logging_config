@@ -12,6 +12,7 @@ class Whitelist(logging.Filter):
     """
     Logging filter to only log messages from named modules
     """
+
     def __init__(self, modules: list[str]) -> None:
         super().__init__()
         self.whitelist = [logging.Filter(module) for module in modules]
@@ -25,6 +26,6 @@ def filter_module_logging(modules: list[str]) -> None:
     Add specified modules to the filter whitelist
     """
     if modules:
-        logger.debug('Adding modules to filter whitelist: %s', modules)
+        logger.debug("Adding modules to filter whitelist: %s", modules)
         for handler in logging.root.handlers:
             handler.addFilter(Whitelist(modules))

@@ -20,7 +20,8 @@ def _handler_lvl(level: int) -> dict[str, int]:
         if handler.name:  # Satisfy mypy
             return {handler.name: level}
     return {}
- 
+
+
 def _get_handler_levels(levels: int | str | None) -> dict[str, int]:
     """
     Return a dict mapping handler names to logging levels
@@ -42,10 +43,7 @@ def _get_handler_levels(levels: int | str | None) -> dict[str, int]:
                 # test if levels can be parsed as a dictionary
                 levels_dict = literal_eval(levels)  # type: ignore[arg-type]
                 if isinstance(levels_dict, dict):
-                    return {
-                        handler_name: _log_level_to_int(level)
-                        for handler_name, level in levels_dict.items()
-                    }
+                    return {handler_name: _log_level_to_int(level) for handler_name, level in levels_dict.items()}
                 raise ValueError(f"Invalid log level: {levels}") from None
             except ValueError:
                 raise ValueError(f"Invalid log level: {levels}") from None

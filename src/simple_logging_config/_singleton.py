@@ -7,6 +7,7 @@ from typing import Any
 
 class Singleton(type):
     """Ensure only one instance of a derived class can exist."""
+
     def __init__(cls, name: str, bases: tuple[Any], dct: dict[str, Any]) -> None:
         super().__init__(name, bases, dct)
         cls._instance = None

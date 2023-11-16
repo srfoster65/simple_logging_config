@@ -7,6 +7,7 @@ from argparse import ArgumentParser
 
 from ._logging_config import read_configs
 
+
 def add_logging_arguments(parser: ArgumentParser) -> None:
     """
     Add logging argumnets to parser to enable configuring logging
@@ -25,7 +26,8 @@ def add_logging_arguments(parser: ArgumentParser) -> None:
         ),
     )
     group.add_argument(
-        "--slc-level", "--slc-levels",
+        "--slc-level",
+        "--slc-levels",
         dest="levels",
         type=str,
         help=(
@@ -41,10 +43,7 @@ def add_logging_arguments(parser: ArgumentParser) -> None:
         dest="modules",
         nargs="*",
         type=str,
-        help=(
-            "The names of the modules to be logged. If omitted all modules "
-            "are logged."
-        ),
+        help=("The names of the modules to be logged. If omitted all modules " "are logged."),
     )
     parser.add_argument(
         "--slc-log-file-path",

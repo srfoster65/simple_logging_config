@@ -18,6 +18,7 @@ names.
 
 import logging
 import logging.config
+from typing import Any
 
 from arg_init import ClassArgInit, ArgDefaults
 
@@ -50,56 +51,54 @@ class SimpleLoggingConfig(metaclass=Singleton):
     # pylint:  disable=unused-argument
     def __init__(
         self,
-        config=None,
-        verbose=None,
-        levels=None,
-        modules=None,
-        log_file_path=None,
-        backup_count=None,
-        **kwargs
+        config: str | None = None,
+        verbose: bool | None = None,
+        levels: int | str | None = None,
+        modules: list[str] | None = None,
+        log_file_path: Path | None = None,
+        backup_count: int | None = None,
+        **kwargs: Any
     ) -> None:
         """
         Configure logging to provide default logging facilities.
         """
-        defaults = (
+        defaults = [
             ArgDefaults("config", default_value=DEFAULT_LOGGING_CONFIG),
             ArgDefaults("log_file_path", default_value=DEFAULT_LOG_FILE_PATH),
             ArgDefaults("backup_count", default_value=DEFAULT_LOG_FILE_BACKUP_COUNT),
-        )
+        ]
         ClassArgInit(env_prefix=ENV_PREFIX, defaults=defaults)
-        print('@'*100)
-        print(Path().resolve())
         config_data = get_logging_config(self.config)
         modify_formatters(config_data)
-        modify_log_file_attributes(config_data, self._log_file_path, self._backup_count)
+        modify_log_file_attributes(config_data, self._log_file_path, self._backup_count)  # type: ignore[attr-defined]
         logging.config.dictConfig(config_data)
         # Take a copy of current handlers in case other modules add more later.
         # i.e. pytest. This is to allow the tearing down (reset) of SLC.
         self._handlers = logging.getLogger().handlers.copy()
         self.rotate()
-        filter_module_logging(self._modules)
+        filter_module_logging(self._modules)  # type: ignore[attr-defined] 
         add_print_logging_level()
         add_trace_logging_level()
-        self.set_levels(self._levels if self._levels else VERBOSE_MAPPING.get(self._verbose))
+        self.set_levels(self._levels if self._levels else VERBOSE_MAPPING.get(self._verbose))  # type: ignore[attr-defined]
         self._report_logging_config()
 
-    def set_levels(self, levels):
+    def set_levels(self, levels: int | str | None) -> None:
         """
         Set Logging levels
         log levels can be adjusted after initialisation.
         """
         set_log_levels(levels)
 
-    def rotate(self):
+    def rotate(self) -> None:
         """
         rotate log files.
         """
         rotate_log(self._handlers)
 
     @property
-    def config(self):
+    def config(self) -> str:
         """Return the currently configure logging config."""
-        return self._config
+        return self._config  # type: ignore[attr-defined]
 
     def reset(self) -> None:
         """
@@ -112,13 +111,13 @@ class SimpleLoggingConfig(metaclass=Singleton):
             logging.root.removeHandler(handler)
         SimpleLoggingConfig.clear()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "\n".join(self._info())
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<SimpleLoggingConfig(config={self.config})>"
 
-    def _info(self) -> list:
+    def _info(self) -> list[str]:
         info = [f"Logging config: {self.config}"]
         for handler in self._handlers:
             info.append(f"  {handler}")

@@ -3,6 +3,7 @@ Construct the logging config dictionary.
 """
 
 from importlib.resources import files
+from typing import Any
 from pathlib import Path
 
 from jinja2 import Environment, PackageLoader
@@ -18,31 +19,31 @@ def _resource_path(resource_name: str) -> str:
     return RESOURCE_PATH.format(resource_name=resource_name)
 
 
-def _read_resource(resource_name: str):
+def _read_resource(resource_name: str) -> bytes:
     my_resources = files(__package__)
     resource_path = _resource_path(resource_name)
     return (my_resources / resource_path).read_bytes()
 
 
-def _read_yaml_resource(resource_name):
+def _read_yaml_resource(resource_name: str) -> dict[str, Any]:
     return yaml.safe_load(_read_resource(resource_name))
 
 
-def _read_definitions() -> dict:
+def _read_definitions() -> dict[str, Any]:
     return {
         "handlers": _read_yaml_resource("handlers.yaml"),
         "formatters": _read_yaml_resource("formatters.yaml"),
     }
 
 
-def read_configs() -> dict:
+def read_configs() -> dict[str, Any]:
     """
     Read configs.yaml resource
     """
     return _read_yaml_resource("configs.yaml")
 
 
-def get_logging_config(config_name) -> dict:
+def get_logging_config(config_name: str) -> dict[str, Any]:
     """
     Return a logging dictionary config as specified by config_name
     """

@@ -10,7 +10,18 @@ from ._exceptions import LoggingHandlerException
 logger = logging.getLogger(__name__)
 
 
-def _get_log_levels(levels: int | str | None) -> dict:
+def _handler_lvl(level: int) -> dict[str, int]:
+    """
+    Return a key value pair of the the name of the first log handler and the value parameter.
+    """
+    handlers = logging.getLogger().handlers
+    if len(handlers) > 0:
+        handler = logging.getLogger().handlers[0]
+        if handler.name:  # Satisfy mypy
+            return {handler.name: level}
+    return {}
+ 
+def _get_handler_levels(levels: int | str | None) -> dict[str, int]:
     """
     Return a dict mapping handler names to logging levels
 
@@ -23,14 +34,13 @@ def _get_log_levels(levels: int | str | None) -> dict:
     """
     if levels:
         try:
-            # test if levels is a simple log level (int or string represenation)
+            # test if levels is a simple log level name represenation
             level = _log_level_to_int(levels)
-            handler = logging.getLogger().handlers[0]
-            return {handler.name: level}
+            return _handler_lvl(level)
         except AttributeError:
             try:
                 # test if levels can be parsed as a dictionary
-                levels_dict = literal_eval(levels)
+                levels_dict = literal_eval(levels)  # type: ignore[arg-type]
                 if isinstance(levels_dict, dict):
                     return {
                         handler_name: _log_level_to_int(level)
@@ -48,8 +58,8 @@ def _log_level_to_int(level: int | str) -> int:
     """
     try:
         return int(level)
-    except (ValueError, TypeError):
-        return getattr(logging, level.upper())
+    except ValueError:
+        return getattr(logging, level.upper())  # type: ignore[union-attr]
 
 
 def _display_level(level: int) -> str:
@@ -60,7 +70,7 @@ def _display_level(level: int) -> str:
     return f"{level_str} ({level})"
 
 
-def _set_root_log_level(levels: dict) -> None:
+def _set_root_log_level(levels: dict[str, int]) -> None:
     """
     Update the root log level with lowest log level.
     """
@@ -72,7 +82,7 @@ def _set_root_log_level(levels: dict) -> None:
             root_logger.setLevel(level)
 
 
-def _set_handler_log_levels(levels: dict) -> None:
+def _set_handler_log_levels(levels: dict[str, int]) -> None:
     """
     Update logging handler levels
     """
@@ -96,6 +106,6 @@ def set_log_levels(levels: int | str | None) -> None:
     """
     Adjust logging levels for root logger and attached handlers.
     """
-    levels = _get_log_levels(levels)
-    _set_root_log_level(levels)
-    _set_handler_log_levels(levels)
+    handler_lvls = _get_handler_levels(levels)
+    _set_root_log_level(handler_lvls)
+    _set_handler_log_levels(handler_lvls)

@@ -5,6 +5,7 @@ Overide default formatters for specific handlers with new format read from envir
 """
 import logging
 from os import environ
+from typing import Any
 
 from ._defaults import CUSTOM_FORMAT_TEMPLATE_ENV
 
@@ -12,7 +13,7 @@ from ._defaults import CUSTOM_FORMAT_TEMPLATE_ENV
 logger = logging.getLogger(__name__)
 
 
-def modify_formatters(config_data: dict) -> None:
+def modify_formatters(config_data: dict[str, Any]) -> None:
     """
     Overide default formatters for specific handlers with new format read from environment variables.
     """

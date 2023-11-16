@@ -3,9 +3,11 @@ Add arguments to a parser to support logging features
 """
 
 
+from argparse import ArgumentParser
+
 from ._logging_config import read_configs
 
-def add_logging_arguments(parser):
+def add_logging_arguments(parser: ArgumentParser) -> None:
     """
     Add logging argumnets to parser to enable configuring logging
     """

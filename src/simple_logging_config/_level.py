@@ -19,11 +19,11 @@ def _handler_lvl(level: int) -> dict[str, int]:
 
 
 def _eval(levels: int | str) -> dict[str, int | str]:
-        if isinstance(levels, str):  # to satisfy mypy
-            levels_dict = literal_eval(levels)
-            if isinstance(levels_dict, dict):
-                return levels_dict
-        raise ValueError
+    if isinstance(levels, str):  # to satisfy mypy
+        levels_dict = literal_eval(levels)
+        if isinstance(levels_dict, dict):
+            return levels_dict
+    raise ValueError
 
 
 def _get_handler_levels(levels: int | str | None) -> dict[str, int]:

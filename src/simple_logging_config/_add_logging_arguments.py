@@ -1,6 +1,4 @@
-"""
-Add arguments to a parser to support logging features
-"""
+"""Add arguments to a parser to support logging features."""
 
 
 from argparse import ArgumentParser
@@ -9,9 +7,7 @@ from ._logging_config import read_configs
 
 
 def add_logging_arguments(parser: ArgumentParser) -> None:
-    """
-    Add logging argumnets to parser to enable configuring logging
-    """
+    """Add logging argumnets to parser to enable configuring logging."""
     configs = read_configs().keys()
     group = parser.add_mutually_exclusive_group(required=False)
     group.add_argument(

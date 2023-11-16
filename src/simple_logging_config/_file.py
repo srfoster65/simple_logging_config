@@ -1,12 +1,9 @@
-"""
-Methods to support file handler related aspects of logging configuation.
-"""
+"""Methods to support file handler related aspects of logging configuation."""
 
-from pathlib import Path
-from typing import Any
 import logging
 import sys
-
+from pathlib import Path
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +28,7 @@ def _get_log_file(log_file_path: str) -> Path:
     return log_file
 
 
-def _set_log_file(config_data: dict[str, Any], log_file: Path) -> bool:  # noqa: ARG002
+def _set_log_file(config_data: dict[str, Any], log_file: Path) -> bool:
     """Update the log file path in config."""
     if log_file:
         for data in config_data["handlers"].values():
@@ -42,8 +39,8 @@ def _set_log_file(config_data: dict[str, Any], log_file: Path) -> bool:  # noqa:
     return False
 
 
-def _set_log_file_backup_count(config_data: dict[str, Any], count: int) -> bool:  # noqa: ARG002
-    """Set the backup count for a rotating file handler"""
+def _set_log_file_backup_count(config_data: dict[str, Any], count: int) -> bool:
+    """Set the backup count for a rotating file handler."""
     if count:
         for data in config_data["handlers"].values():
             if "backupCount" in data:

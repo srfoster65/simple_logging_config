@@ -1,13 +1,11 @@
-"""
-Constants used by SimpleLoggingConfig
-"""
+"""Constants used by SimpleLoggingConfig."""
 
 import logging
 
 ENV_PREFIX = "SLC"
 
 # Environment variable names
-CUSTOM_FORMAT_TEMPLATE_ENV = "_".join([ENV_PREFIX, "{handler_name}", "FORMAT"])
+CUSTOM_FORMAT_TEMPLATE_ENV = f"{ENV_PREFIX}_{{handler_name}}_FORMAT"
 
 # Default values
 DEFAULT_LOG_FILE_PATH = "."

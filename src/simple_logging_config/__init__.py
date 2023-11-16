@@ -10,8 +10,8 @@ from ._add_logging_level import (
 )
 from ._configure import configure_logging
 from ._exceptions import (
-    LoggingConfigException,
-    LoggingHandlerException,
+    LoggingConfigError,
+    LoggingHandlerError,
 )
 from ._simple_logging_config import SimpleLoggingConfig
 
@@ -27,6 +27,6 @@ __all__ = [
     "add_logging_level",
     "add_print_logging_level",
     "add_trace_logging_level",
-    "LoggingHandlerException",
-    "LoggingConfigException",
+    "LoggingHandlerError",
+    "LoggingConfigError",
 ]

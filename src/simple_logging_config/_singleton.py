@@ -1,6 +1,4 @@
-"""
-Used as a base class for SimpleLoggingConfig to ensure only one instance can be created
-"""
+"""Used as a base class for SimpleLoggingConfig to ensure only one instance can be created."""
 
 from typing import Any
 
@@ -12,9 +10,9 @@ class Singleton(type):
         super().__init__(name, bases, dct)
         cls._instance = None
 
-    def __call__(cls, *args: Any, **kwargs: Any) -> Any:
+    def __call__(cls, *args: Any, **kwargs: Any) -> Any:  # noqa: ANN401
         if cls._instance is None:
-            cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
+            cls._instance = super().__call__(*args, **kwargs)
         return cls._instance
 
     def clear(cls) -> None:

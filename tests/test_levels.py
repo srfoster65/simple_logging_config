@@ -9,7 +9,7 @@ import logging
 import pytest
 
 from simple_logging_config import configure_logging
-from simple_logging_config import LoggingHandlerException
+from simple_logging_config import LoggingHandlerError
 
 
 logger = logging.getLogger(__name__)
@@ -123,5 +123,5 @@ class TestLevels:
         """
         Test a bad handler name raises exception
         """
-        with pytest.raises(LoggingHandlerException):
+        with pytest.raises(LoggingHandlerError):
             configure_logging(levels=levels)

@@ -2,7 +2,6 @@
 
 import logging
 
-
 from ._add_logging_arguments import add_logging_arguments
 from ._add_logging_level import (
     add_logging_level,

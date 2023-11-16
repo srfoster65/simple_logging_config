@@ -9,7 +9,7 @@ import logging
 import pytest
 
 from simple_logging_config import configure_logging
-from simple_logging_config import LoggingConfigException
+from simple_logging_config import LoggingConfigError
 
 logger = logging.getLogger(__name__)
 
@@ -75,5 +75,5 @@ class TestNamedConfigs:
         """
         Test exception raised if invalid config requested.
         """
-        with pytest.raises(LoggingConfigException):
+        with pytest.raises(LoggingConfigError):
             configure_logging(config="bad_config_name")

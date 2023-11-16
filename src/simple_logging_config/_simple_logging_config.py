@@ -18,50 +18,44 @@ names.
 
 import logging
 import logging.config
+from pathlib import Path
 from typing import Any
 
-from arg_init import ClassArgInit, ArgDefaults
+from arg_init import ArgDefaults, ClassArgInit
 
 from ._add_logging_level import add_print_logging_level, add_trace_logging_level
 from ._defaults import (
-    DEFAULT_LOG_FILE_PATH,
     DEFAULT_LOG_FILE_BACKUP_COUNT,
+    DEFAULT_LOG_FILE_PATH,
     DEFAULT_LOGGING_CONFIG,
     ENV_PREFIX,
     VERBOSE_MAPPING,
 )
-from ._file import rotate_log, modify_log_file_attributes
+from ._file import modify_log_file_attributes, rotate_log
 from ._filters import filter_module_logging
 from ._formatters import modify_formatters
-from ._logging_config import get_logging_config
 from ._level import set_log_levels
+from ._logging_config import get_logging_config
 from ._singleton import Singleton
-
-from pathlib import Path
-
 
 logger = logging.getLogger(__name__)
 
 
 class SimpleLoggingConfig(metaclass=Singleton):
-    """
-    Class to simplify logging configuration
-    """
+    """Class to simplify logging configuration."""
 
     # pylint:  disable=unused-argument
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
-        config: str | None = None,
-        verbose: bool | None = None,
-        levels: int | str | None = None,
-        modules: list[str] | None = None,
-        log_file_path: Path | None = None,
-        backup_count: int | None = None,
-        **kwargs: Any
+        config: str | None = None,  # noqa: ARG002
+        verbose: bool | None = None,  # noqa: ARG002
+        levels: int | str | None = None,  # noqa: ARG002
+        modules: list[str] | None = None,  # noqa: ARG002
+        log_file_path: Path | None = None,  # noqa: ARG002
+        backup_count: int | None = None,  # noqa: ARG002
+        **kwargs: Any,  # noqa: ARG002, ANN401
     ) -> None:
-        """
-        Configure logging to provide default logging facilities.
-        """
+        """Configure logging to provide default logging facilities."""
         defaults = [
             ArgDefaults("config", default_value=DEFAULT_LOGGING_CONFIG),
             ArgDefaults("log_file_path", default_value=DEFAULT_LOG_FILE_PATH),
@@ -76,7 +70,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         # i.e. pytest. This is to allow the tearing down (reset) of SLC.
         self._handlers = logging.getLogger().handlers.copy()
         self.rotate()
-        filter_module_logging(self._modules)  # type: ignore[attr-defined] 
+        filter_module_logging(self._modules)  # type: ignore[attr-defined]
         add_print_logging_level()
         add_trace_logging_level()
         self.set_levels(self._levels if self._levels else VERBOSE_MAPPING.get(self._verbose))  # type: ignore[attr-defined]
@@ -90,9 +84,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         set_log_levels(levels)
 
     def rotate(self) -> None:
-        """
-        rotate log files.
-        """
+        """Rotate log files."""
         rotate_log(self._handlers)
 
     @property
@@ -101,9 +93,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
         return self._config  # type: ignore[attr-defined]
 
     def reset(self) -> None:
-        """
-        This API is provided primarily for unit testing. It is not intended for general use
-        """
+        """Not for general use. API is provided for unit testing only."""
         logger.debug("Reset simple_logging_config")
         for handler in self._handlers:
             logger.debug("removing handler: %s", handler.name)
@@ -119,8 +109,7 @@ class SimpleLoggingConfig(metaclass=Singleton):
 
     def _info(self) -> list[str]:
         info = [f"Logging config: {self.config}"]
-        for handler in self._handlers:
-            info.append(f"  {handler}")
+        info.extend([f"  {handler}" for handler in self._handlers])
         return info
 
     def _report_logging_config(self) -> None:

@@ -1,6 +1,4 @@
-"""
-Add custom log levels to the logging class.
-"""
+"""Add custom log levels to the logging class."""
 
 import logging
 from typing import Any
@@ -16,15 +14,15 @@ from ._defaults import (
 def add_logging_level(level_name: str, level: int) -> None:
     """Add support for a new logging level."""
 
-    def log_for_level(self, message: str, *args: list[Any], **kwargs: dict[Any, Any]) -> None:  # type: ignore[no-untyped-def]
+    def log_for_level(self: logging.Logger, message: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
         if self.isEnabledFor(level):
             # Note: self._log takes *args parameter as args
             self._log(  # pylint: disable=protected-access
                 level, message, args, **kwargs
             )
 
-    def log_to_root(message: str, *args: list[Any], **kwargs: dict[Any, Any]) -> None:
-        logging.log(level, message, args, **kwargs)  # type: ignore[arg-type]
+    def log_to_root(message: str, *args: Any, **kwargs: Any) -> None:  # noqa: ANN401
+        logging.log(level, message, args, **kwargs)
 
     level_function = level_name.lower()
     logging.addLevelName(level, level_name)

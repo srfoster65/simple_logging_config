@@ -3,6 +3,7 @@ Methods to support file handler related aspects of logging configuation.
 """
 
 from pathlib import Path
+from typing import Any
 import logging
 import sys
 
@@ -30,7 +31,7 @@ def _get_log_file(log_file_path: str) -> Path:
     return log_file
 
 
-def _set_log_file(config_data: dict, log_file: Path) -> bool:
+def _set_log_file(config_data: dict[str, Any], log_file: Path) -> bool:  # noqa: ARG002
     """Update the log file path in config."""
     if log_file:
         for data in config_data["handlers"].values():
@@ -41,7 +42,7 @@ def _set_log_file(config_data: dict, log_file: Path) -> bool:
     return False
 
 
-def _set_log_file_backup_count(config_data: dict, count: int) -> bool:
+def _set_log_file_backup_count(config_data: dict[str, Any], count: int) -> bool:  # noqa: ARG002
     """Set the backup count for a rotating file handler"""
     if count:
         for data in config_data["handlers"].values():
@@ -53,7 +54,7 @@ def _set_log_file_backup_count(config_data: dict, count: int) -> bool:
 
 
 def modify_log_file_attributes(
-    config_data: dict, log_file_path: Path, backup_count: int
+    config_data: dict[str, str], log_file_path: str, backup_count: int
 ) -> None:
     """Set log file path and name and update backup count."""
     log_file = _get_log_file(log_file_path)
@@ -61,7 +62,7 @@ def modify_log_file_attributes(
     _set_log_file_backup_count(config_data, backup_count)
 
 
-def rotate_log(handlers) -> None:
+def rotate_log(handlers: list[logging.Handler]) -> None:
     """Rotate the log."""
     for handler in handlers:
         if hasattr(handler, "doRollover"):

@@ -29,3 +29,15 @@ def configure_fs(fs):
     """
     fs.add_real_directory(Path(package_root, "src/simple_logging_config/resources"))
     yield fs
+
+
+# @pytest.fixture(scope="function", autouse=True)
+# def config(fs):
+#     """
+#     Ensure logging is reset at the end of all tests. This will be executed even if there
+#     are errors in individual tests and ensures subsequent test classes are not effected
+#     """
+#     fs.add_real_directory(Path(package_root, "src/simple_logging_config/resources"))
+#     yield
+#     slc = configure_logging()
+#     slc.reset()
